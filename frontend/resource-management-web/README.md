@@ -1,6 +1,6 @@
 ## How to launch the project
+Install node.js (preferrably 18.14.2 using [This](https://github.com/nvm-sh/nvm))
 ```bash
-1. install node.js (preferrably 18.14.2)
-2. corepack prepare pnpm@latest --activate
-3. pnpm run dev
+corepack prepare pnpm@latest --activate
+pnpm run dev
 ```
