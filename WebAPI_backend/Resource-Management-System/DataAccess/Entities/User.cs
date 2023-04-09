@@ -8,6 +8,7 @@ namespace DataAccess.Entities
 {
     public class User : BaseEntity
     {
+        //TODO: Add User Properties
 
     }
 }
