@@ -8,5 +8,8 @@ namespace DataAccess.Entities
 {
     public class ResourceType : BaseEntity
     {
+        public string TypeName { get; set; }
+
+        public ICollection<Resource> Resources { get; set; }
     }
 }

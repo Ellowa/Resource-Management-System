@@ -8,5 +8,14 @@ namespace DataAccess.Entities
 {
     public class Schedule : BaseEntity
     {
+        public DateTime Start {  get; set; }
+
+        public DateTime End { get; set; }
+
+        public string Purpose { get; set; }
+
+        public int ResourceId { get; set; }
+
+        public Resource Resource { get; set; }
     }
 }
