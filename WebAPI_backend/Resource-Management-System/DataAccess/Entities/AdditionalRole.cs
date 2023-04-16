@@ -8,5 +8,8 @@ namespace DataAccess.Entities
 {
     public class AdditionalRole : BaseEntity
     {
+        public string Name { get; set; }
+
+        public ICollection<User> Users { get; set; }
     }
 }
