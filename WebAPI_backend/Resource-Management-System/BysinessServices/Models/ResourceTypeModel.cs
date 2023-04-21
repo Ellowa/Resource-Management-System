@@ -11,5 +11,7 @@ namespace BysinessServices.Models
         public int Id { get; set; }
 
         public string TypeName { get; set; }
+
+        public List<ResourceModel> Resources { get; set; }
     }
 }

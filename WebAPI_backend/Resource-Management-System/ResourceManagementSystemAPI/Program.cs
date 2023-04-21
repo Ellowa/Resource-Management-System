@@ -4,6 +4,7 @@ using DataAccess.Interfaces;
 using DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 using MySql.EntityFrameworkCore.Extensions;
+using BysinessServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,12 +19,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => {
     options.UseMySQL(builder.Configuration.GetConnectionString("MySQLConnection"));
 });
 
+
 builder.Services.AddScoped<IGenericRepository<AdditionalRole>, Repository<AdditionalRole>>();
 builder.Services.AddScoped<IGenericRepository<Request>, Repository<Request>>();
 builder.Services.AddScoped<IGenericRepository<Resource>, Repository<Resource>>();
 builder.Services.AddScoped<IGenericRepository<ResourceType>, Repository<ResourceType>>();
 builder.Services.AddScoped<IGenericRepository<Schedule>, Repository<Schedule>>();
 builder.Services.AddScoped<IGenericRepository<User>, Repository<User>>();
+
+builder.Services.AddAutoMapper(typeof(AutomapperProfile));
 
 var app = builder.Build();
 
