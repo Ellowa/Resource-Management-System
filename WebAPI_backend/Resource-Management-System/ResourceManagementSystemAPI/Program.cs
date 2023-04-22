@@ -30,6 +30,7 @@ builder.Services.AddScoped<IGenericRepository<Schedule>, Repository<Schedule>>()
 builder.Services.AddScoped<IGenericRepository<User>, Repository<User>>();
 
 builder.Services.AddScoped<IResourceService, ResourceService>();
+builder.Services.AddScoped<IRequestService, RequestService>();
 
 builder.Services.AddAutoMapper(typeof(AutomapperProfile));
 

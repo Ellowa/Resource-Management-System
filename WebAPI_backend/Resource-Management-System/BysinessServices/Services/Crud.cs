@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BysinessServices.Services
 {
-    internal class Crud<TModel, TEntity> : ICrud<TModel> where TModel : class 
+    public class Crud<TModel, TEntity> : ICrud<TModel> where TModel : class 
                                                          where TEntity : class
     {
         private readonly IUnitOfWork _unitOfWork;

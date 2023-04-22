@@ -34,6 +34,8 @@ namespace BysinessServices
                 .ForMember(dest => dest.Resources, opt => opt.MapFrom(src => src.Resources));
             CreateMap<ResourceTypeModel, ResourceType>()
                 .ForMember(dest => dest.Resources, opt => opt.Ignore());
+
+            CreateMap<RequestModel, Schedule>();
         }
     }
 }
