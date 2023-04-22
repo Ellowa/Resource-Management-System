@@ -11,5 +11,10 @@ namespace BysinessServices.Interfaces
     {
         Task<IEnumerable<ScheduleModel>> GetScheduleByResourceId();
         Task<IEnumerable<ScheduleModel>> GetScheduleByUserId();
+
+        Task<IEnumerable<ResourceTypeModel>> GetAllResourceTypesAsync();
+        Task AddResourceTypeAsync(ResourceTypeModel resourceTypeModel);
+        Task UpdateResourceTypeAsync(ResourceTypeModel resourceTypeModel);
+        Task RemoveResourceTypeAsync(int resourceTypeId);
     }
 }

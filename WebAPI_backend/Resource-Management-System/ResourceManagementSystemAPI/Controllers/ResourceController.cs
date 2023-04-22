@@ -43,6 +43,8 @@ namespace ResourceManagementSystemAPI.Controllers
             return schedule == null ? NotFound() : Ok(schedule);
         }
 
+        // GET: api/resource/5
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var resource = await _resourceService.GetByIdAsync(id);
@@ -82,6 +84,52 @@ namespace ResourceManagementSystemAPI.Controllers
             if (resourceToDelete == null) return NotFound();
 
             await _resourceService.DeleteAsync(id);
+
+            return NoContent();
+        }
+
+
+        // GET: api/resource/type
+        [HttpGet("type")]
+        public async Task<IEnumerable<ResourceTypeModel>> GetResourceType()
+        {
+            return await _resourceService.GetAllResourceTypesAsync();
+        }
+
+        // POST: api/resource/type
+        [HttpPost("type")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> CreateResourceType(ResourceTypeModel resourceType)
+        {
+            await _resourceService.AddResourceTypeAsync(resourceType);
+
+            return CreatedAtAction(null, null, resourceType);
+        }
+
+        // PUT: api/resource/type/5
+        [HttpPut("type/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateResourceType(int id, ResourceTypeModel resourceType)
+        {
+            if (id != resourceType.Id) return BadRequest();
+
+            await _resourceService.UpdateResourceTypeAsync(resourceType);
+
+            return NoContent();
+        }
+
+        // DELETE: api/resource/type/5
+        [HttpDelete("type/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteResourceType(int id)
+        {
+            var resourceTypesToDelete = await _resourceService.GetAllResourceTypesAsync();
+            var resourceTypeToDelete = resourceTypesToDelete.FirstOrDefault(rt => rt.Id == id);
+            if (resourceTypeToDelete == null) return NotFound();
+
+            await _resourceService.RemoveResourceTypeAsync(id);
 
             return NoContent();
         }
