@@ -29,6 +29,8 @@ builder.Services.AddScoped<IGenericRepository<ResourceType>, Repository<Resource
 builder.Services.AddScoped<IGenericRepository<Schedule>, Repository<Schedule>>();
 builder.Services.AddScoped<IGenericRepository<User>, Repository<User>>();
 
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 builder.Services.AddScoped<IResourceService, ResourceService>();
 builder.Services.AddScoped<IRequestService, RequestService>();
 
