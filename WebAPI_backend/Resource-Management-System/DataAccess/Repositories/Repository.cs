@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,9 +37,16 @@ namespace DataAccess.Repositories
                 _dbSet.Remove(entity);
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<IQueryable<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includes)
         {
-            return await _dbSet.ToListAsync();
+            IQueryable<TEntity> query = _dbSet;
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return query;
         }
 
         public async Task<TEntity> GetByIdAsync(int id)

@@ -12,6 +12,6 @@ namespace BysinessServices.Models
 
         public string TypeName { get; set; }
 
-        public List<ResourceModel> Resources { get; set; }
+        public List<ResourceModel>? Resources { get; set; }
     }
 }

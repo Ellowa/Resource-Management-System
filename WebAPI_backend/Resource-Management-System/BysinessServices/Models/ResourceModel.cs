@@ -16,10 +16,10 @@ namespace BysinessServices.Models
 
         public int ResourceTypeId { get; set; }
 
-        public string ResourceTypeName { get; set; }
+        public string? ResourceTypeName { get; set; }
 
-        public List<ScheduleModel> Schedules { get; set; }
+        public List<ScheduleModel>? Schedules { get; set; }
 
-        public List<RequestModel> Requests { get; set; }
+        public List<RequestModel>? Requests { get; set; }
     }
 }

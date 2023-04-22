@@ -48,7 +48,7 @@ namespace BysinessServices.Services
 
         public async Task<IEnumerable<ResourceModel>> GetAllAsync()
         {
-            var resources = await _resourceRepository.GetAllAsync();
+            var resources = await _resourceRepository.GetAllAsync(r => r.ResourceType);
             return _mapper.Map<IEnumerable<ResourceModel>>(resources);
         }
 
