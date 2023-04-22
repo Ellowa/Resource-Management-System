@@ -9,5 +9,7 @@ namespace BysinessServices.Interfaces
 {
     public interface IResourceService : ICrud<ResourceModel>
     {
+        Task<IEnumerable<ScheduleModel>> GetScheduleByResourceId();
+        Task<IEnumerable<ScheduleModel>> GetScheduleByUserId();
     }
 }
