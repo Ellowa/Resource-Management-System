@@ -29,7 +29,7 @@ namespace ResourceManagementSystemAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetScheduleByUserId(int id)
         {
-            var schedule = await _resourceService.GetScheduleByUserId();
+            var schedule = await _resourceService.GetScheduleByUserId(id);
             return schedule == null ? NotFound() : Ok(schedule);
         }
 
@@ -39,7 +39,7 @@ namespace ResourceManagementSystemAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetScheduleByResourceId(int id)
         {
-            var schedule = await _resourceService.GetScheduleByResourceId();
+            var schedule = await _resourceService.GetScheduleByResourceId(id);
             return schedule == null ? NotFound() : Ok(schedule);
         }
 
