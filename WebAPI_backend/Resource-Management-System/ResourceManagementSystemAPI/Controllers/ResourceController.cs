@@ -25,26 +25,22 @@ namespace ResourceManagementSystemAPI.Controllers
 
         //GET: api/resource/user/5
         [HttpGet("user/{id}")]
-        [ProducesResponseType(typeof(ScheduleModel), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetScheduleByUserId(int id)
+        public async Task<IEnumerable<ScheduleModel>> GetScheduleByUserId(int id)
         {
-            var schedule = await _resourceService.GetScheduleByUserId(id);
-            return schedule == null ? NotFound() : Ok(schedule);
+            return await _resourceService.GetScheduleByUserId(id);
         }
 
         //GET: api/resource/schedule/5
         [HttpGet("schedule/{id}")]
-        [ProducesResponseType(typeof(ScheduleModel), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetScheduleByResourceId(int id)
+        public async Task<IEnumerable<ScheduleModel>> GetScheduleByResourceId(int id)
         {
-            var schedule = await _resourceService.GetScheduleByResourceId(id);
-            return schedule == null ? NotFound() : Ok(schedule);
+            return await _resourceService.GetScheduleByResourceId(id);
         }
 
         // GET: api/resource/5
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ResourceModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(int id)
         {
             var resource = await _resourceService.GetByIdAsync(id);

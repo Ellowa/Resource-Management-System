@@ -67,14 +67,14 @@ namespace BysinessServices.Services
         public async Task<IEnumerable<ScheduleModel>> GetScheduleByResourceId(int resourceId)
         {
             var schedules = await _scheduleRepository.GetAllAsync();
-            var schedulesResourceId = schedules.FirstOrDefault(s=> s.ResourceId == resourceId);
+            var schedulesResourceId = schedules.Where(s=> s.ResourceId == resourceId);
             return _mapper.Map<IEnumerable<ScheduleModel>>(schedulesResourceId);
         }
 
         public async Task<IEnumerable<ScheduleModel>> GetScheduleByUserId(int userId)
         {
             var schedules = await _scheduleRepository.GetAllAsync();
-            var schedulesUserId = schedules.FirstOrDefault(s => s.UserId == userId);
+            var schedulesUserId = schedules.Where(s => s.UserId == userId);
             return _mapper.Map<IEnumerable<ScheduleModel>>(schedulesUserId);
         }
 
