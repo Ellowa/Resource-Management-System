@@ -9,5 +9,7 @@ namespace BysinessServices.Interfaces
 {
     public interface IRequestService : ICrud<RequestModel>
     {
+        Task<IEnumerable<RequestModel>> GetByUserId(int userId);
+        Task ConfirmRequest(RequestModel request);
     }
 }
