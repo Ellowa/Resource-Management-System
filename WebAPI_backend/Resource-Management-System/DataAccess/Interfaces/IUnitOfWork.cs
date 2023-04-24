@@ -9,7 +9,7 @@ namespace DataAccess.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
+        IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class, new();
 
         Task SaveAsync();
     }

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace BysinessServices.Services
 {
     public class Crud<TModel, TEntity> : ICrud<TModel> where TModel : class 
-                                                         where TEntity : class
+                                                         where TEntity : class, new()
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IGenericRepository<TEntity> _repository;

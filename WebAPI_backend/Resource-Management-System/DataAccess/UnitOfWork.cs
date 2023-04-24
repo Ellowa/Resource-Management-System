@@ -54,9 +54,10 @@ namespace DataAccess
             }
         }
 
-        public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class
-        { 
-            TEntity entity = null;
+        public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class, new()
+        {
+            TEntity entity = new TEntity();
+
             switch (entity) {
                 case AdditionalRole _: 
                     return _additionalRoleRepository as IGenericRepository<TEntity>;
