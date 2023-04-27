@@ -1,4 +1,4 @@
-import { GETRequest } from './APIController';
+import { DELETERequest, GETRequest } from './APIController';
 
 // Добавить ресурс
 export function AddResource() {
@@ -21,8 +21,8 @@ export function ChangeResourceType() {
 }
 
 // Удалить ресурс
-export function DeleteResource() {
-
+export function DeleteResource(id) {
+    DELETERequest(`/api/Resource/`, id);
 }
 
 // Удалить тип ресурса
