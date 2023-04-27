@@ -64,7 +64,7 @@ export function GetResourceByID(id) {
 }
 
 // Просмотр расписание ресурса по id ресурса
-export function GetScheduleByResourceID() {
+export function GetScheduleByResourceID(id) {
     const { data, error, isLoading } = GETRequest(`/api/Resource/schedule/${id}`)
 
     return {
@@ -75,7 +75,7 @@ export function GetScheduleByResourceID() {
 }
 
 // Просмотр расписание ресурса по id пользователя
-export function GetScheduleByUserID() {
+export function GetScheduleByUserID(id) {
     const { data, error, isLoading } = GETRequest(`/api/Resource/user/${id}`)
 
     return {
