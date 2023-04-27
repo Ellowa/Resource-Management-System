@@ -26,10 +26,10 @@ export function GetAllRequests() {
     }
 }
 
-export function GetRequestByID() {
+export function GetRequestByID(id) {
 
 }
 
-export function GetRequestByUserID() {
+export function GetRequestByUserID(id) {
 
 }

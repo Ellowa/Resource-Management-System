@@ -1,8 +1,8 @@
-import APIController from './APIController';
+import { GETRequest } from './APIController';
 
 export function Login() {
     //Temp for preserving imports from auto deleting themselves
-    const { data, error, isLoading } = APIController('/api/Requests')
+    const { data, error, isLoading } = GETRequest('/api/Requests')
 
     return {
         requests: data,
