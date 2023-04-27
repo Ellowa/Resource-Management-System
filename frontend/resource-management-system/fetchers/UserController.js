@@ -1,4 +1,4 @@
-import APIController from './APIController';
+import { GETRequest } from './APIController';
 export function AddUser() {
 
 }
@@ -12,7 +12,7 @@ export function DeleteUser() {
 }
 
 export function GetAllUsers() {
-    const { data, error, isLoading } = APIController('/api/Users')
+    const { data, error, isLoading } = GETRequest('/api/Users')
 
     return {
         users: data,

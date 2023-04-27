@@ -1,4 +1,4 @@
-import APIController from './APIController';
+import { GETRequest } from './APIController';
 
 export function AddRequest() {
 
@@ -17,7 +17,7 @@ export function DenyRequest() {
 }
 
 export function GetAllRequests() {
-    const { data, error, isLoading } = APIController('/api/Requests')
+    const { data, error, isLoading } = GETRequest('/api/Requests')
 
     return {
         requests: data,
