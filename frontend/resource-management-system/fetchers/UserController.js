@@ -1,7 +1,4 @@
-import useSWR from 'swr'
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json())
-
+import APIController from './APIController';
 export function AddUser() {
 
 }
@@ -15,7 +12,7 @@ export function DeleteUser() {
 }
 
 export function GetAllUsers() {
-    const { data, error, isLoading } = useSWR('/api/Users', fetcher)
+    const { data, error, isLoading } = APIController('/api/Users')
 
     return {
         users: data,

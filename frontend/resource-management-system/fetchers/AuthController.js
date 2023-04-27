@@ -1,10 +1,8 @@
-import useSWR from 'swr'
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json())
+import APIController from './APIController';
 
 export function Login() {
     //Temp for preserving imports from auto deleting themselves
-    const { data, error, isLoading } = useSWR('/api/Requests', fetcher)
+    const { data, error, isLoading } = APIController('/api/Requests')
 
     return {
         requests: data,

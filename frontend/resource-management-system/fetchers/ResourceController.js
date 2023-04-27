@@ -1,6 +1,4 @@
-import useSWR from 'swr'
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json())
+import APIController from './APIController';
 
 export function AddResource() {
 
@@ -27,7 +25,7 @@ export function DeleteResourceType() {
 }
 
 export function GetAllResources() {
-    const { data, error, isLoading } = useSWR(`/api/Resource`, fetcher)
+    const { data, error, isLoading } = APIController(`/api/Resource`)
 
     return {
         resources: data,
@@ -41,7 +39,7 @@ export function GetAllResourcesOfType() {
 }
 
 export function GetResourceByID(id) {
-    const { data, error, isLoading } = useSWR(`/api/Resource/${id}`, fetcher)
+    const { data, error, isLoading } = APIController(`/api/Resource/${id}`)
 
     return {
         resource: data,
