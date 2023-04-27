@@ -31,7 +31,9 @@ export async function DELETERequest(url, id) {
     try {
         await client.delete(url + `/` + id);
         mutate(url);
+        return false;
     } catch (error) {
         console.error(error);
+        return true;
     }
 }
