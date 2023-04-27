@@ -4,13 +4,9 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/Resource',
-        destination: 'https://resource-ms-backend.azurewebsites.net/api/Resource',
-      },
-      {
-        source: '/api/Request',
-        destination: 'https://resource-ms-backend.azurewebsites.net/api/Request',
-      },
+        source: '/api/:path*',
+        destination: 'https://resource-ms-backend.azurewebsites.net/api/:path*',
+      }
     ]
   },
 }

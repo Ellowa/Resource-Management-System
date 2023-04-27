@@ -27,7 +27,7 @@ export function DeleteResourceType() {
 }
 
 export function GetAllResources() {
-    const { data, error, isLoading } = useSWR('/api/Resource', fetcher)
+    const { data, error, isLoading } = useSWR(`/api/Resource`, fetcher)
 
     return {
         resources: data,
@@ -40,8 +40,14 @@ export function GetAllResourcesOfType() {
 
 }
 
-export function GetResourceByID() {
+export function GetResourceByID(id) {
+    const { data, error, isLoading } = useSWR(`/api/Resource/${id}`, fetcher)
 
+    return {
+        resource: data,
+        isLoading,
+        isError: error
+    }
 }
 
 export function GetScheduleByResourceID() {
