@@ -1,0 +1,314 @@
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+a,
+address,
+big,
+cite,
+code,
+del,
+img,
+q,
+small,
+strong,
+sub,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+body * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+@font-face {
+  font-family: RailwayB;
+  src: url(../fonts/Raleway-Bold.ttf);
+}
+
+@font-face {
+  font-family: RailwayL;
+  src: url(../fonts/Raleway-Light.ttf);
+}
+
+@font-face {
+  font-family: RailwayM;
+  src: url(../fonts/Raleway-Medium.ttf);
+}
+
+@font-face {
+  font-family: RailwayR;
+  src: url(../fonts/Raleway-Regular.ttf);
+}
+
+.page {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.side-bar {
+  height: 100vh;
+  width: 20vw;
+  position: relative;
+  background-color: #88A0A8;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 3vh;
+  color: #FFFFFF;
+  font-family: RailwayR, "Courier New", Courier, monospace;
+}
+
+.side-bar__img {
+  background-image: url(../images/logo-removebg-preview.png);
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  width: 147px;
+  height: 100px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.side-bar__menu {
+  width: 100%;
+  height: 75px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.side-bar__menu-first {
+  margin-top: 10vh;
+}
+
+.side-bar__log-out {
+  width: 100%;
+  height: 75px;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 6vh;
+  z-index: 1;
+}
+
+.side-bar__log-out:hover {
+  background-color: #2A3D45;
+}
+
+.side-bar_click {
+  background-color: #2A3D45;
+}
+
+.main-page {
+  width: 80vw;
+  height: 100vh;
+  background-color: #ECECEC;
+  font-size: 3vh;
+  font-family: RailwayR, "Courier New", Courier, monospace;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.main-page h2 {
+  margin-top: 5vh;
+  margin-left: 5vw;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+  margin-bottom: 5vh;
+}
+
+.table {
+  display: contents;
+}
+
+.table__header {
+  width: 90%;
+  background-color: #88A0A8;
+}
+
+.table__content {
+  width: 90%;
+  max-height: 70vh;
+  overflow-x: auto;
+  margin-top: 0px;
+  border: 1px solid #88A0A8;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+th {
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 1.5vh;
+  color: #ECECEC;
+  text-transform: uppercase;
+}
+
+th:last-child {
+  text-align: right;
+  padding-right: 6vw;
+}
+
+td {
+  padding: 15px;
+  text-align: left;
+  vertical-align: middle;
+  font-weight: 300;
+  font-size: 1.5vh;
+  color: #000000;
+  border-bottom: solid 1px lightgray;
+}
+
+td button {
+  padding: 1vh 1vw;
+  background-color: #88A0A8;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 2vh;
+  font-family: RailwayR, "Courier New", Courier, monospace;
+  color: #ECECEC;
+}
+
+td:nth-child(2n) {
+  text-align: right;
+  padding-right: 5vw;
+}
+
+/*# sourceMappingURL=index.css.map */

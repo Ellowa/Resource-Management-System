@@ -1,0 +1,49 @@
+.side-bar{
+    height: 100vh;
+    width: 20vw;
+    position: relative;
+    background-color: $color-one;
+    @include flex-column-center;
+    font-size: 3vh;
+    color: $color-four;
+    font-family: RailwayR, $font-families;
+
+    &__img{
+        background-image: url(images/logo-removebg-preview.png);
+        margin-top: 5vh;
+        margin-bottom: 5vh;
+        width: 147px;
+        height: 100px;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    &__menu{
+        width: 100%;
+        height: 75px;
+        @include flex-center-center;
+        cursor: pointer;
+
+        &-first{
+            margin-top: 10vh;
+        }
+    }
+
+    &__log-out{
+        width: 100%;
+        height: 75px;
+        cursor: pointer;
+        @include flex-center-center;
+        position: absolute;
+        bottom: 6vh;
+        z-index: 1;
+
+        &:hover{
+            background-color: $color-two;
+        }
+    }
+
+    &_click{
+        background-color: $color-two;
+    }
+}

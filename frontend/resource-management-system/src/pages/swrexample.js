@@ -1,4 +1,4 @@
-import { GetAllResources, GetResourceByID } from '../fetchers/ResourceController';
+import { GetAllResources, GetResourceByID } from "@/fetchers/ResourceController";
 
 function Resources() {
     const { resources, isLoading, isError } = GetAllResources();
