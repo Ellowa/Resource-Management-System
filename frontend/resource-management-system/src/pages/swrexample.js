@@ -5,7 +5,6 @@ function Resources() {
 
     if (isLoading) return <div>Loading...</div>
     if (isError) return <div>Error</div>
-    console.log(resources)
     return (
         <div>
             <h1>Resources</h1>
