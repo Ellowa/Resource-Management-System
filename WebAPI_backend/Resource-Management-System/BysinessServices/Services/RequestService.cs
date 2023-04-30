@@ -26,9 +26,10 @@ namespace BysinessServices.Services
             _scheduleRepository = unitOfWork.GetRepository<Schedule>();
         }
 
-        public async Task ConfirmRequest(RequestModel request)
+        public async Task ConfirmRequest(RequestModel requestModel)
         {
-            await _scheduleRepository.AddAsync(_mapper.Map<Schedule>(request));
+            var request = _mapper.Map<Schedule>(requestModel);
+            await _scheduleRepository.AddAsync(request);
             await _requestRepository.DeleteByIdAsync(request.Id);
             await _unitOfWork.SaveAsync();
         }

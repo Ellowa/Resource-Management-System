@@ -14,7 +14,7 @@ namespace BysinessServices.Models
 
         public DateTime End { get; set; }
 
-        public string Purpose { get; set; }
+        public string? Purpose { get; set; }
 
         public int ResourceId { get; set; }
 

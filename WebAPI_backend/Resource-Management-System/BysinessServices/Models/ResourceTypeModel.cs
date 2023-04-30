@@ -8,7 +8,7 @@ namespace BysinessServices.Models
 {
     public class ResourceTypeModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         public string TypeName { get; set; }
 
