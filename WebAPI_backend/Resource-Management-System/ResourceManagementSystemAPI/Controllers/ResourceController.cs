@@ -52,9 +52,9 @@ namespace ResourceManagementSystemAPI.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Create(ResourceModel resource)
         {
-            await _resourceService.AddAsync(resource);
+            var createdResource = await _resourceService.AddAsync(resource);
 
-            return CreatedAtAction(nameof(GetById), new { id = resource.Id }, resource);
+            return CreatedAtAction(nameof(GetById), new { id = createdResource.Id }, createdResource);
         }
 
         // PUT: api/resource/5

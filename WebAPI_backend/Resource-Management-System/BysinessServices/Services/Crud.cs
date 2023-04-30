@@ -25,10 +25,12 @@ namespace BysinessServices.Services
             _mapper = mapper;
         }
 
-        public async Task AddAsync(TModel model)
+        public async Task<TModel> AddAsync(TModel model)
         {
-            await _repository.AddAsync(_mapper.Map<TEntity>(model));
+            var entity = _mapper.Map<TEntity>(model);
+            await _repository.AddAsync(entity);
             await _unitOfWork.SaveAsync();
+            return _mapper.Map<TModel>(entity);
         }
 
         public async Task DeleteAsync(int modelId)

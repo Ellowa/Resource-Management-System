@@ -12,7 +12,7 @@ namespace BysinessServices.Interfaces
 
         Task<TModel> GetByIdAsync(int id);
 
-        Task AddAsync(TModel model);
+        Task<TModel> AddAsync(TModel model);
 
         Task UpdateAsync(TModel model);
 

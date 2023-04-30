@@ -28,10 +28,12 @@ namespace BysinessServices.Services
             _resourceTypeRepository = unitOfWork.GetRepository<ResourceType>();
         }
 
-        public async Task AddAsync(ResourceModel model)
+        public async Task<ResourceModel> AddAsync(ResourceModel model)
         {
-            await _resourceRepository.AddAsync(_mapper.Map<Resource>(model));
+            var resource = _mapper.Map<Resource>(model);
+            await _resourceRepository.AddAsync(resource);
             await _unitOfWork.SaveAsync();
+            return _mapper.Map<ResourceModel>(resource);
         }
 
         public async Task AddResourceTypeAsync(ResourceTypeModel resourceTypeModel)
