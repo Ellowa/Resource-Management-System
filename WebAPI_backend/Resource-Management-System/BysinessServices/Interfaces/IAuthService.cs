@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BysinessServices.Interfaces
 {
-    internal interface IAuthService
+    public interface IAuthService
     {
         /// <summary>
         /// Add a new JWT refresh token to a user

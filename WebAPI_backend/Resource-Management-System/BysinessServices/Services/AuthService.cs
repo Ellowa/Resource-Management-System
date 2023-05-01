@@ -16,7 +16,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace BysinessServices.Services
 {
-    internal class AuthService : IAuthService
+    public class AuthService : IAuthService
     {
         protected readonly IUnitOfWork _unitOfWork;
         protected readonly IMapper _mapper;
