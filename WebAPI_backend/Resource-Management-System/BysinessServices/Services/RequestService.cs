@@ -13,15 +13,11 @@ namespace BysinessServices.Services
 {
     public class RequestService : Crud<RequestModel, Request>, IRequestService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
         private readonly IGenericRepository<Request> _requestRepository;
         private readonly IGenericRepository<Schedule> _scheduleRepository;
 
         public RequestService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _requestRepository = unitOfWork.GetRepository<Request>();
             _scheduleRepository = unitOfWork.GetRepository<Schedule>();
         }
@@ -32,6 +28,13 @@ namespace BysinessServices.Services
             await _scheduleRepository.AddAsync(request);
             await _requestRepository.DeleteByIdAsync(request.Id);
             await _unitOfWork.SaveAsync();
+        }
+
+        public async Task<IEnumerable<RequestModel>> GetByResourceId(int resourceId)
+        {
+            var requests = await _requestRepository.GetAllAsync();
+            var requestsResourceId = requests.Where(s => s.ResourceId == resourceId);
+            return _mapper.Map<IEnumerable<RequestModel>>(requestsResourceId);
         }
 
         public async Task<IEnumerable<RequestModel>> GetByUserId(int userId)

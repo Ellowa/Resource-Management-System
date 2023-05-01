@@ -33,6 +33,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IResourceService, ResourceService>();
 builder.Services.AddScoped<IRequestService, RequestService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddAutoMapper(typeof(AutomapperProfile));
 
