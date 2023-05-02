@@ -1,8 +1,8 @@
-import { DELETERequest, GETRequest } from './APIController';
+import { DELETERequest, GETRequest, POSTRequest } from './APIController';
 
 // Добавить ресурс
-export function AddResource() {
-
+export function AddResource(data) {
+    POSTRequest(`/api/Resource/`, data);
 }
 
 // Добавить тип ресурса
@@ -32,7 +32,7 @@ export function DeleteResourceType() {
 
 // Просмотр списка всех ресурсов
 export function GetAllResources() {
-    const { data, error, isLoading } = GETRequest(`/api/Resource/`)
+    const { data, error, isLoading } = GETRequest(`/api/Resource`)
 
     return {
         resources: data,
