@@ -19,17 +19,31 @@ export function GETRequest(url) {
     }
 }
 
-export function POSTRequest(url, data) {
-
+export async function POSTRequest(url, data) {
+    try {
+        await client.post(url, data);
+        mutate(url);
+        return false;
+    } catch (error) {
+        console.error(error);
+        return true;
+    }
 }
 
-export function PUTRequest(url, data) {
-
+export async function PUTRequest(url, data) {
+    try {
+        await client.put(url, data);
+        mutate(url);
+        return false;
+    } catch (error) {
+        console.error(error);
+        return true;
+    }
 }
 
 export async function DELETERequest(url, id) {
     try {
-        await client.delete(url + `/` + id);
+        await client.delete(`${url}${id}`);
         mutate(url);
         return false;
     } catch (error) {

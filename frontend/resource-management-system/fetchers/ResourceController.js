@@ -1,8 +1,8 @@
-import { DELETERequest, GETRequest } from './APIController';
+import { DELETERequest, GETRequest, POSTRequest } from './APIController';
 
 // Добавить ресурс
-export function AddResource() {
-
+export function AddResource(data) {
+    POSTRequest(`/api/Resource/`, data);
 }
 
 // Добавить тип ресурса
