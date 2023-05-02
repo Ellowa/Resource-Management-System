@@ -1,7 +1,6 @@
-//Убрать компонент?
 import { GetAllResources } from "@/fetchers/ResourceController";
 
-export function MainPage() {
+export function ResourcePage() {
     const { resources, isLoading, isError } = GetAllResources();
 
     if (isLoading) return <div>Loading...</div>
