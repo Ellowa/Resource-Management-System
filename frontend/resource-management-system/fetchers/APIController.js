@@ -43,7 +43,7 @@ export async function PUTRequest(url, data) {
 
 export async function DELETERequest(url, id) {
     try {
-        await client.delete(`${url}/${id.id}`);
+        await client.delete(`${url}${id}`);
         mutate(url);
         return false;
     } catch (error) {
