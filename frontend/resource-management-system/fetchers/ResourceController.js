@@ -32,7 +32,7 @@ export function DeleteResourceType() {
 
 // Просмотр списка всех ресурсов
 export function GetAllResources() {
-    const { data, error, isLoading } = GETRequest(`/api/Resource`)
+    const { data, error, isLoading } = GETRequest(`/api/Resource/`)
 
     return {
         resources: data,
