@@ -83,6 +83,8 @@ export default function Example() {
             <br />
             <ResourceById />
             <br />
+            Changes made below should automatically update the resources above without requiring page refresh. (May have delays)
+            <br />
             Add Resource:
             <ResourceAdder />
             <br />
