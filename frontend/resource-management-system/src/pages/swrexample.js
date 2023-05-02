@@ -5,13 +5,12 @@ function Resources() {
 
     if (isLoading) return <div>Loading...</div>
     if (isError) return <div>Error</div>
-    console.log(resources)
     return (
         <div>
             <h1>Resources</h1>
             <ul>
                 {resources.map((resource) => (
-                    <li key={resource.id}>{resource.name}</li>
+                    <li key={resource.id}>{resource.id}: {resource.name}</li>
                 ))}
             </ul>
         </div>
@@ -41,10 +40,7 @@ function ResourceAdder() {
             resourceTypeId: e.target.resourceTypeId.value
         }
 
-        const error = AddResource(data);
-        if (error) {
-            console.error(error);
-        }
+        AddResource(data);
     }
     return (
         <form onSubmit={handleSubmit}>
@@ -68,10 +64,7 @@ function ResourceDeleter() {
 
         const id = e.target.id.value;
 
-        const error = DeleteResource(id);
-        if (error) {
-            console.error(error);
-        }
+        DeleteResource(id);
     }
     return (
         <form onSubmit={handleSubmit}>
