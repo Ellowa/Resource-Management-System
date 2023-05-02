@@ -17,7 +17,7 @@ export function DenyRequest() {
 }
 
 export function GetAllRequests() {
-    const { data, error, isLoading } = GETRequest('/api/Requests')
+    const { data, error, isLoading } = GETRequest('/api/Request/')
 
     return {
         requests: data,
