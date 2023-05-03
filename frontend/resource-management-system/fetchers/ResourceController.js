@@ -1,4 +1,4 @@
-import { DELETERequest, GETRequest, POSTRequest } from './APIController';
+import { DELETERequest, GETRequest, POSTRequest, PUTRequest } from './APIController';
 
 // Добавить ресурс
 export function AddResource(data) {
@@ -6,18 +6,19 @@ export function AddResource(data) {
 }
 
 // Добавить тип ресурса
-export function AddResourceType() {
-
+export function AddResourceType(data) {
+    POSTRequest(`/api/Resource/type/`, data);
 }
 
 // Изменить данные ресурса (имя, серийный номер, тип) по id (id изменить нельзя)
-export function ChangeResourceByID() {
+export function ChangeResourceByID(id, data) {
+    PUTRequest(`/api/Resource/${id}`, data);
 
 }
 
 // Изменить данные типа ресурса
-export function ChangeResourceType() {
-
+export function ChangeResourceType(id, data) {
+    PUTRequest(`/api/Resource/type/${id}`, data);
 }
 
 // Удалить ресурс
@@ -26,8 +27,8 @@ export function DeleteResource(id) {
 }
 
 // Удалить тип ресурса
-export function DeleteResourceType() {
-
+export function DeleteResourceType(id) {
+    DELETERequest(`/api/Resource/type/${id}`);
 }
 
 // Просмотр списка всех ресурсов
