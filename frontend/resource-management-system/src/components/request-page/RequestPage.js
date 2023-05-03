@@ -1,11 +1,25 @@
 import { GetAllRequests } from "@/fetchers/RequestController";
 
-export function RequestPage() {
+function TableData() {
     const { requests, isLoading, isError } = GetAllRequests();
-    console.log(isError);
 
-    if (isLoading) return <div>Loading...</div>
-    if (isError) return <div>Error</div>
+    if (isLoading) return <tr><td>Loading...</td></tr>
+    if (isError) return <tr><td>Error</td></tr>
+    return (
+        <>
+            {
+                requests.map((request) => (
+                    <tr key={request.id}>
+                        <td>{request.name}</td>
+                        <td><button>Додати</button></td>
+                    </tr>
+                ))
+            }
+        </>
+    );
+}
+
+export function RequestPage() {
 
     return (
         <div className="main-page">
@@ -25,14 +39,7 @@ export function RequestPage() {
                 <div className="table__content">
                     <table cellPadding="0" cellSpacing="0" border="0">
                         <tbody>
-                            {
-                                requests.map((request) => (
-                                    <tr key={request.id}>
-                                        <td>{request.name}</td>
-                                        <td><button>Додати</button></td>
-                                    </tr>
-                                ))
-                            }
+                            <TableData />
                         </tbody>
                     </table>
                 </div>
