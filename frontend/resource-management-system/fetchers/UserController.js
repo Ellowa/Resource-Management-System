@@ -12,7 +12,7 @@ export function DeleteUser() {
 }
 
 export function GetAllUsers() {
-    const { data, error, isLoading } = GETRequest('/api/Users')
+    const { data, error, isLoading } = GETRequest('/api/User/')
 
     return {
         users: data,

@@ -1,10 +1,25 @@
 import { GetAllResources } from "@/fetchers/ResourceController";
 
-export function ResourcePage() {
+function TableData() {
     const { resources, isLoading, isError } = GetAllResources();
 
-    if (isLoading) return <div>Loading...</div>
-    if (isError) return <div>Error</div>
+    if (isLoading) return <tr><td>Loading...</td></tr>
+    if (isError) return <tr><td>Error</td></tr>
+    return (
+        <>
+            {
+                resources.map((resource) => (
+                    <tr key={resource.id}>
+                        <td>{resource.name}</td>
+                        <td><button>Додати</button></td>
+                    </tr>
+                ))
+            }
+        </>
+    )
+}
+
+export function ResourcePage() {
 
     return (
         <div className="main-page">
@@ -24,14 +39,7 @@ export function ResourcePage() {
                 <div className="table__content">
                     <table cellPadding="0" cellSpacing="0" border="0">
                         <tbody>
-                            {
-                                resources.map((resource) => (
-                                    <tr key={resource.id}>
-                                        <td>{resource.name}</td>
-                                        <td><button>Додати</button></td>
-                                    </tr>
-                                ))
-                            }
+                            <TableData />
                         </tbody>
                     </table>
                 </div>
