@@ -28,7 +28,13 @@ namespace BysinessServices.Services
             return _mapper.Map<IEnumerable<UserWithAuthInfoModel>>(resources);
         }
 
-
+        public async Task<UserProtectedModel> AddProtectedAsync(UserWithAuthInfoModel userModel)
+        {
+            var userEntity = _mapper.Map<User>(userModel);
+            await _userRepository.AddAsync(userEntity);
+            await _unitOfWork.SaveAsync();
+            return _mapper.Map<UserProtectedModel>(userEntity);
+        }
 
 
         public async Task AddRoleAsync(RoleModel newRole)
@@ -75,7 +81,7 @@ namespace BysinessServices.Services
             return _mapper.Map<UserProtectedModel>(userWithoutProtectedInfo);
         }
 
-        public UserWithAuthInfoModel ConvertToProtected(UserUnsafeModel unsafeUser, byte[] passwordHash, byte[] passwordSalt)
+        public UserWithAuthInfoModel ConvertToUserWithAuth(UserUnsafeModel unsafeUser, byte[] passwordHash, byte[] passwordSalt)
         {
             return new UserWithAuthInfoModel()
             {

@@ -57,9 +57,9 @@ namespace ResourceManagementSystemAPI.Controllers
         {
             byte[] hash, salt;
             _authService.CreatePasswordHash(user.Password, out hash, out salt);
-            var protectedUser = _userService.ConvertToProtected(user, hash, salt);
+            var userWithAuth = _userService.ConvertToUserWithAuth(user, hash, salt);
+            var createdUser = await _userService.AddProtectedAsync(userWithAuth);
 
-            var createdUser = await _userService.AddAsync(protectedUser);
             return CreatedAtAction(nameof(GetById), new { id = createdUser.Id }, createdUser);
         }
 
@@ -79,7 +79,7 @@ namespace ResourceManagementSystemAPI.Controllers
 
             byte[] hash, salt;
             _authService.CreatePasswordHash(user.Password, out hash, out salt);
-            var changedUser = _userService.ConvertToProtected(user, hash, salt);
+            var changedUser = _userService.ConvertToUserWithAuth(user, hash, salt);
             await _userService.UpdateAsync(changedUser);
 
             return NoContent();

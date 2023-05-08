@@ -12,6 +12,6 @@ namespace BysinessServices.Models
 
         public List<ScheduleModel>? Schedules { get; set; }
 
-        public string Password { get; set;}
+        public string? Password { get; set;}
     }
 }

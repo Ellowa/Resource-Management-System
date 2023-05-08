@@ -53,6 +53,8 @@ namespace BysinessServices.Interfaces
 
         Task<UserProtectedModel> GetUserWithoutProtectedInfoById(int id);
 
-        UserWithAuthInfoModel ConvertToProtected(UserUnsafeModel unsafeUser, byte[] passwordHash, byte[] passwordSalt);
+        UserWithAuthInfoModel ConvertToUserWithAuth(UserUnsafeModel unsafeUser, byte[] passwordHash, byte[] passwordSalt);
+
+        Task<UserProtectedModel> AddProtectedAsync(UserWithAuthInfoModel userModel);
     }
 }
