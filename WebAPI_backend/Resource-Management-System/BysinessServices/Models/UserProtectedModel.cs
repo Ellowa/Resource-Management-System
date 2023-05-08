@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BysinessServices.Models
 {
-    public class UserWithAuthInfoModel : UserModel
+    public class UserProtectedModel : UserModel
     {
         public byte[] PasswordHash { get; set; }
 

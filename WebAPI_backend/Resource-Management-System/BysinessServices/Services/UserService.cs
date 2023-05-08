@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BysinessServices.Services
 {
-    public class UserService: Crud<UserWithAuthInfoModel, User>, IUserService
+    public class UserService: Crud<UserProtectedModel, User>, IUserService
     {
         private readonly IGenericRepository<User> _userRepository;
         private readonly IGenericRepository<AdditionalRole> _roleRepository;
@@ -58,6 +58,31 @@ namespace BysinessServices.Services
         {
             var usersWithoutProtectedInfo = await _userRepository.GetAllAsync();
             return _mapper.Map<IEnumerable<UserModel>>(usersWithoutProtectedInfo);
+        }
+
+        public async Task<UserModel> GetUserWithoutProtectedInfoById(int id)
+        {
+            var userWithoutProtectedInfo = await _userRepository.GetByIdAsync(id);
+            return _mapper.Map<UserModel>(userWithoutProtectedInfo);
+        }
+
+        public UserProtectedModel ConvertToProtected(UserUnsafeModel unsafeUser, byte[] passwordHash, byte[] passwordSalt)
+        {
+            return new UserProtectedModel()
+            {
+                Id = unsafeUser.Id,
+                FirstName = unsafeUser.FirstName,
+                SecondName = unsafeUser.SecondName,
+                LastName = unsafeUser.LastName,
+                RoleId = unsafeUser.RoleId,
+                RoleName = unsafeUser.RoleName,
+                Requests = unsafeUser.Requests,
+                Schedules = unsafeUser.Schedules,
+                Login = unsafeUser.Login,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                JwtRefreshToken = ""
+            };
         }
     }
 }

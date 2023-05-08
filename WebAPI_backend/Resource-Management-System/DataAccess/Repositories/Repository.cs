@@ -56,6 +56,7 @@ namespace DataAccess.Repositories
 
         public void Update(TEntity entity)
         {
+            //_context.ChangeTracker.Clear();
             _context.Entry(entity).State = EntityState.Modified;
         }
     }

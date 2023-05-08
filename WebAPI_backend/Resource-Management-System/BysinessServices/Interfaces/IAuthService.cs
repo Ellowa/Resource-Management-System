@@ -47,13 +47,13 @@ namespace BysinessServices.Interfaces
         /// <param name="user">user</param>
         /// <param name="expiretionTime">time when the token expires</param>
         /// <returns>JWT access token</returns>
-        string GenerateJwtAccessToken(UserWithAuthInfoModel user, TimeSpan expiretionTime);
+        string GenerateJwtAccessToken(UserProtectedModel user, TimeSpan expiretionTime);
 
         /// <summary>
         /// Generate JWT refresh token for user
         /// </summary>
         /// <param name="user">user</param>
         /// <returns>JWT refresh token</returns>
-        string GenerateJwtRefreshToken(UserWithAuthInfoModel user);
+        string GenerateJwtRefreshToken(UserProtectedModel user);
     }
 }

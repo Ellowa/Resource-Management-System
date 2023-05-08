@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BysinessServices.Interfaces
 {
-    public interface IUserService : ICrud<UserWithAuthInfoModel>
+    public interface IUserService : ICrud<UserProtectedModel>
     {
         /// <summary>
         /// Get all user roles awailable in the system (Database)
@@ -50,5 +50,9 @@ namespace BysinessServices.Interfaces
         /// </summary>
         /// <returns>Enumerator for "list" of roles</returns>
         Task<IEnumerable<UserModel>> GetAllUserWithoutProtectedInfo();
+
+        Task<UserModel> GetUserWithoutProtectedInfoById(int id);
+
+        UserProtectedModel ConvertToProtected(UserUnsafeModel unsafeUser, byte[] passwordHash, byte[] passwordSalt);
     }
 }

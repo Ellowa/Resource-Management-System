@@ -57,19 +57,20 @@ namespace BysinessServices
 
             //AutoMapper for Models.UserWithAuthInfoModel --> Models.UserModel
             //ATTENTION! Backward automapping is not allowd!!!
-            CreateMap<UserWithAuthInfoModel, UserModel>();
+            CreateMap<UserProtectedModel, UserModel>();
 
             //AutoMapper for Entities.User <--> Models.UserWithAuthInfoModel
-            CreateMap<User, UserWithAuthInfoModel>()
+            CreateMap<User, UserProtectedModel>()
                 .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role.Name))
                 .ForMember(dest => dest.Requests, opt => opt.MapFrom(src => src.Requests))
                 .ForMember(dest => dest.Schedules, opt => opt.MapFrom(src => src.Schedules));
-            CreateMap<UserWithAuthInfoModel, User>()
+            CreateMap<UserProtectedModel, User>()
                 .ForMember(dest => dest.Role, opt => opt.Ignore())
                 .ForMember(dest => dest.Requests, opt => opt.Ignore())
                 .ForMember(dest => dest.Schedules, opt => opt.Ignore());
 
-
+            CreateMap<UserModel, UserUnsafeModel>()
+                .ForMember(dest => dest.Password, opt => opt.Ignore());
         }
     }
 }
