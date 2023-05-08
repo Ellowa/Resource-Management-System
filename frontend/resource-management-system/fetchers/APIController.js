@@ -19,6 +19,16 @@ export function GETRequest(url) {
     }
 }
 
+export async function GETRequestSTD(url) {
+    try {
+        const res = await client.get(url);
+        return res.data;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
 export async function POSTRequest(url, data) {
     try {
         await client.post(url, data);
