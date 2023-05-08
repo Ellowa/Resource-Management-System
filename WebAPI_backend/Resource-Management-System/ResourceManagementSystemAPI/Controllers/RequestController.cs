@@ -47,9 +47,9 @@ namespace ResourceManagementSystemAPI.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Create(RequestModel request)
         {
-            await _requestService.AddAsync(request);
+            var createdRequest = await _requestService.AddAsync(request);
 
-            return CreatedAtAction(nameof(GetById), new { id = request.Id }, request);
+            return CreatedAtAction(nameof(GetById), new { id = createdRequest.Id }, createdRequest);
         }
 
         // DELETE: api/request/5
