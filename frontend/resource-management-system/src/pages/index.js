@@ -10,7 +10,9 @@ export const getServerSideProps = withSessionSsr(
 
     if (!user) {
       return {
-        notFound: true,
+        redirect: {
+          destination: "/login",
+        }
       }
     }
 
