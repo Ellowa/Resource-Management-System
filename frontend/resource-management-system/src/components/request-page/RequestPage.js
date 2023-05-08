@@ -10,7 +10,7 @@ function TableData() {
             {
                 requests.map((request) => (
                     <tr key={request.id}>
-                        <td>{request.name}</td>
+                        <td>{request.purpose}</td>
                         <td><button>Додати</button></td>
                     </tr>
                 ))

@@ -36,14 +36,3 @@ export function GetUserByID() {
         isError: error
     }
 }
-
-//Просмотр списка всех ролей?
-export function GetAllUserRoles() {
-    const { data, error, isLoading } = GETRequest(`/api/User/role`)
-
-    return {
-        roles: data,
-        isLoading,
-        isError: error
-    }
-}
