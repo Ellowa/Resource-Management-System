@@ -27,7 +27,7 @@ export function GetAllUsers() {
 }
 
 //Просмотр учётной записи по ID
-export function GetUserByID() {
+export function GetUserByID(id) {
     const { data, error, isLoading } = GETRequest(`/api/User/${id}`)
 
     return {
