@@ -12,6 +12,6 @@ namespace BysinessServices.Models
 
         public string Name { get; set; }
 
-        public List<UserModel>? Users { get; set; }
+        public List<UserProtectedModel>? Users { get; set; }
     }
 }

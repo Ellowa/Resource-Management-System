@@ -24,7 +24,7 @@ namespace ResourceManagementSystemAPI.Controllers
         /// </summary>
         /// <returns>list of users without login and password</returns>
         [HttpGet]
-        public async Task<IEnumerable<UserModel>> Get()
+        public async Task<IEnumerable<UserProtectedModel>> Get()
         {
             return await _userService.GetAllUserWithoutProtectedInfo();
         }
@@ -37,7 +37,7 @@ namespace ResourceManagementSystemAPI.Controllers
         /// <param name="id">id of user</param>
         /// <returns>information about user</returns>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(UserModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(UserProtectedModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(int id)
         {

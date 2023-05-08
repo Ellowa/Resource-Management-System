@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BysinessServices.Models
 {
-    public class UserUnsafeModel :UserModel
+    public class UserUnsafeModel :UserProtectedModel
     {
         public List<RequestModel>? Requests { get; set; }
 

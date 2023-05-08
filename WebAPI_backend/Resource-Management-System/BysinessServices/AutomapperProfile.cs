@@ -50,26 +50,26 @@ namespace BysinessServices
 
             //AutoMapper for Entities.User --> Models.UserModel
             //ATTENTION! Backward automapping is not allowd!!!
-            CreateMap<User, UserModel>()
+            CreateMap<User, UserProtectedModel>()
                 .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role.Name))
                 .ForMember(dest => dest.Requests, opt => opt.MapFrom(src => src.Requests))
                 .ForMember(dest => dest.Schedules, opt => opt.MapFrom(src => src.Schedules));
 
             //AutoMapper for Models.UserWithAuthInfoModel --> Models.UserModel
             //ATTENTION! Backward automapping is not allowd!!!
-            CreateMap<UserProtectedModel, UserModel>();
+            CreateMap<UserWithAuthInfoModel, UserProtectedModel>();
 
             //AutoMapper for Entities.User <--> Models.UserWithAuthInfoModel
-            CreateMap<User, UserProtectedModel>()
+            CreateMap<User, UserWithAuthInfoModel>()
                 .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role.Name))
                 .ForMember(dest => dest.Requests, opt => opt.MapFrom(src => src.Requests))
                 .ForMember(dest => dest.Schedules, opt => opt.MapFrom(src => src.Schedules));
-            CreateMap<UserProtectedModel, User>()
+            CreateMap<UserWithAuthInfoModel, User>()
                 .ForMember(dest => dest.Role, opt => opt.Ignore())
                 .ForMember(dest => dest.Requests, opt => opt.Ignore())
                 .ForMember(dest => dest.Schedules, opt => opt.Ignore());
 
-            CreateMap<UserModel, UserUnsafeModel>()
+            CreateMap<UserProtectedModel, UserUnsafeModel>()
                 .ForMember(dest => dest.Password, opt => opt.Ignore());
         }
     }

@@ -48,7 +48,7 @@ namespace BysinessServices.Services
             }
         }
 
-        public string GenerateJwtAccessToken(UserProtectedModel user, TimeSpan expiretionTime)
+        public string GenerateJwtAccessToken(UserWithAuthInfoModel user, TimeSpan expiretionTime)
         {
             //"JwtSettings:AccessTokenKey"
             List<Claim> claims = new List<Claim>()
@@ -70,7 +70,7 @@ namespace BysinessServices.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public string GenerateJwtRefreshToken(UserProtectedModel user)
+        public string GenerateJwtRefreshToken(UserWithAuthInfoModel user)
         {
             //"JwtSettings:RefreshTokenKey"
             List<Claim> claims = new List<Claim>()

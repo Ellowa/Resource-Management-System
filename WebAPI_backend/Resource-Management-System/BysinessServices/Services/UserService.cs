@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BysinessServices.Services
 {
-    public class UserService: Crud<UserProtectedModel, User>, IUserService
+    public class UserService: Crud<UserWithAuthInfoModel, User>, IUserService
     {
         private readonly IGenericRepository<User> _userRepository;
         private readonly IGenericRepository<AdditionalRole> _roleRepository;
@@ -21,6 +21,15 @@ namespace BysinessServices.Services
             _userRepository = _unitOfWork.GetRepository<User>();
             _roleRepository = _unitOfWork.GetRepository<AdditionalRole>();
         }
+
+        public override async Task<IEnumerable<UserWithAuthInfoModel>> GetAllAsync()
+        {
+            var resources = await _userRepository.GetAllAsync(u => u.Role);
+            return _mapper.Map<IEnumerable<UserWithAuthInfoModel>>(resources);
+        }
+
+
+
 
         public async Task AddRoleAsync(RoleModel newRole)
         {
@@ -54,21 +63,21 @@ namespace BysinessServices.Services
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task<IEnumerable<UserModel>> GetAllUserWithoutProtectedInfo()
+        public async Task<IEnumerable<UserProtectedModel>> GetAllUserWithoutProtectedInfo()
         {
-            var usersWithoutProtectedInfo = await _userRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<UserModel>>(usersWithoutProtectedInfo);
+            var usersWithoutProtectedInfo = await _userRepository.GetAllAsync(u => u.Role);
+            return _mapper.Map<IEnumerable<UserProtectedModel>>(usersWithoutProtectedInfo);
         }
 
-        public async Task<UserModel> GetUserWithoutProtectedInfoById(int id)
+        public async Task<UserProtectedModel> GetUserWithoutProtectedInfoById(int id)
         {
             var userWithoutProtectedInfo = await _userRepository.GetByIdAsync(id);
-            return _mapper.Map<UserModel>(userWithoutProtectedInfo);
+            return _mapper.Map<UserProtectedModel>(userWithoutProtectedInfo);
         }
 
-        public UserProtectedModel ConvertToProtected(UserUnsafeModel unsafeUser, byte[] passwordHash, byte[] passwordSalt)
+        public UserWithAuthInfoModel ConvertToProtected(UserUnsafeModel unsafeUser, byte[] passwordHash, byte[] passwordSalt)
         {
-            return new UserProtectedModel()
+            return new UserWithAuthInfoModel()
             {
                 Id = unsafeUser.Id,
                 FirstName = unsafeUser.FirstName,
