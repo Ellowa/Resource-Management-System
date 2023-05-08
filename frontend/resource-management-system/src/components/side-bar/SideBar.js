@@ -1,13 +1,15 @@
+import { useUserContext } from '@/src/context/user';
 import { useState } from 'react';
 
 export function SideBar(props) {
+    const [user, setUser] = useUserContext();
     const [colorFirst, setColorFirst] = useState(false);
     const [colorSecond, setColorSecond] = useState(true);
 
     return (
         <div className="side-bar">
             <div className="side-bar__img"></div>
-            <p className="side-bar__user-name">Hi, UserName</p>
+            <p className="side-bar__user-name">Hi, {user.name}</p>
 
             {/* <div>
                 <button></button>
