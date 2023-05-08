@@ -1,23 +1,28 @@
-import { GETRequest } from './APIController';
+import { DELETERequest, GETRequest, POSTRequest, PUTRequest } from './APIController';
 
-export function AddRequest() {
-
+// Добавить запрос
+export function AddRequest(data) {
+    POSTRequest(`/api/Request/`, data);
 }
 
-export function ApproveRequest() {
-
+// Подтвердить запрос
+export function ConfirmRequest(id) {
+    PUTRequest(`/api/Request/confirm/${id}`, null);
 }
 
-export function DeleteRequest() {
-
+// Удалить запрос
+export function DeleteRequest(id) {
+    DELETERequest(`/api/Request/${id}`);
 }
 
-export function DenyRequest() {
-
+// Отклонить запрос
+export function DenyRequest(id) {
+    DELETERequest(`/api/Request/deny/${id}`);
 }
 
+// Просмотр списка запросов
 export function GetAllRequests() {
-    const { data, error, isLoading } = GETRequest('/api/Request/')
+    const { data, error, isLoading } = GETRequest(`/api/Request/`)
 
     return {
         requests: data,
@@ -26,10 +31,24 @@ export function GetAllRequests() {
     }
 }
 
+// Просмотр запроса по id
 export function GetRequestByID(id) {
+    const { data, error, isLoading } = GETRequest(`/api/Request/${id}`)
 
+    return {
+        request: data,
+        isLoading,
+        isError: error
+    }
 }
 
+// Просмотр списка запросов по пользователю
 export function GetRequestByUserID(id) {
+    const { data, error, isLoading } = GETRequest(`/api/Request/user/${id}`)
 
+    return {
+        requests: data,
+        isLoading,
+        isError: error
+    }
 }
