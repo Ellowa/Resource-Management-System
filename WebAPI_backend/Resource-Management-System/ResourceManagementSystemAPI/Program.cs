@@ -7,6 +7,7 @@ using MySql.EntityFrameworkCore.Extensions;
 using BysinessServices;
 using BysinessServices.Interfaces;
 using BysinessServices.Services;
+using ResourceManagementSystemAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +47,8 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
