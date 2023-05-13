@@ -1,7 +1,13 @@
 ﻿using BysinessServices.Interfaces;
 using BysinessServices.Models;
+using DataAccess.Entities;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using FluentValidation.Internal;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MySqlX.XDevAPI.Common;
 
 namespace ResourceManagementSystemAPI.Controllers
 {
@@ -20,7 +26,14 @@ namespace ResourceManagementSystemAPI.Controllers
         [HttpGet]
         public async Task<IEnumerable<ResourceModel>> Get()
         {
-            return await _resourceService.GetAllAsync();
+            return await _resourceService.GetAllAsync(r => r.ResourceType);
+        }
+
+        // GET: api/resource/details
+        [HttpGet("details")]
+        public async Task<IEnumerable<ResourceModel>> GetWithDetails()
+        {
+            return await _resourceService.GetAllAsync(r => r.ResourceType, r => r.Schedules, r => r.Requests);
         }
 
         //GET: api/resource/user/5
@@ -92,14 +105,21 @@ namespace ResourceManagementSystemAPI.Controllers
             return await _resourceService.GetAllResourceTypesAsync();
         }
 
+        // GET: api/resource/type/details
+        [HttpGet("type/details")]
+        public async Task<IEnumerable<ResourceTypeModel>> GetResourceTypeWithDetails()
+        {
+            return await _resourceService.GetAllResourceTypesAsync(rt => rt.Resources);
+        }
+
         // POST: api/resource/type
         [HttpPost("type")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateResourceType(ResourceTypeModel resourceType)
         {
-            await _resourceService.AddResourceTypeAsync(resourceType);
+            var createdResourceType = await _resourceService.AddResourceTypeAsync(resourceType);
 
-            return CreatedAtAction(null, null, resourceType);
+            return CreatedAtAction(null, new { id = createdResourceType.Id }, createdResourceType);
         }
 
         // PUT: api/resource/type/5

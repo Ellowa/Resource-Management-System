@@ -32,14 +32,14 @@ namespace BysinessServices.Services
 
         public async Task<IEnumerable<RequestModel>> GetByResourceId(int resourceId)
         {
-            var requests = await _requestRepository.GetAllAsync();
+            var requests = await _requestRepository.GetAllAsync(req => req.Resource);
             var requestsResourceId = requests.Where(s => s.ResourceId == resourceId);
             return _mapper.Map<IEnumerable<RequestModel>>(requestsResourceId);
         }
 
         public async Task<IEnumerable<RequestModel>> GetByUserId(int userId)
         {
-            var requests = await _requestRepository.GetAllAsync();
+            var requests = await _requestRepository.GetAllAsync(req => req.Resource);
             var requestsUserId = requests.Where(s => s.UserId == userId);
             return _mapper.Map<IEnumerable<RequestModel>>(requestsUserId);
         }

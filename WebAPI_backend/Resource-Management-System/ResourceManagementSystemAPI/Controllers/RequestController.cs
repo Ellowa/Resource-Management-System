@@ -20,7 +20,7 @@ namespace ResourceManagementSystemAPI.Controllers
         [HttpGet]
         public async Task<IEnumerable<RequestModel>> Get()
         {
-            return await _requestService.GetAllAsync();
+            return await _requestService.GetAllAsync(req => req.Resource);
         }
 
         //GET: api/request/user/5

@@ -6,12 +6,13 @@ using DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BysinessServices.Services
 {
-    public class Crud<TModel, TEntity> : ICrud<TModel> where TModel : class 
+    public class Crud<TModel, TEntity> : ICrud<TModel, TEntity> where TModel : class 
                                                          where TEntity : class, new()
     {
         protected readonly IUnitOfWork _unitOfWork;
@@ -39,9 +40,9 @@ namespace BysinessServices.Services
             await _unitOfWork.SaveAsync();
         }
 
-        public virtual async Task<IEnumerable<TModel>> GetAllAsync()
+        public virtual async Task<IEnumerable<TModel>> GetAllAsync(params Expression<Func<TEntity, object>>[] includes)
         {
-            var entities = await _repository.GetAllAsync();
+            var entities = await _repository.GetAllAsync(includes);
             return _mapper.Map<IEnumerable<TModel>>(entities);
         }
 

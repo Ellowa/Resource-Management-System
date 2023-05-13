@@ -6,6 +6,7 @@ using DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,7 +23,7 @@ namespace BysinessServices.Services
             _roleRepository = _unitOfWork.GetRepository<AdditionalRole>();
         }
 
-        public override async Task<IEnumerable<UserWithAuthInfoModel>> GetAllAsync()
+        public override async Task<IEnumerable<UserWithAuthInfoModel>> GetAllAsync(params Expression<Func<User, object>>[] includes)
         {
             var resources = await _userRepository.GetAllAsync(u => u.Role);
             return _mapper.Map<IEnumerable<UserWithAuthInfoModel>>(resources);

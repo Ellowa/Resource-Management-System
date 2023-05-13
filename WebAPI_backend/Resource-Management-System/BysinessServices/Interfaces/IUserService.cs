@@ -1,4 +1,5 @@
 ﻿using BysinessServices.Models;
+using DataAccess.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BysinessServices.Interfaces
 {
-    public interface IUserService : ICrud<UserWithAuthInfoModel>
+    public interface IUserService : ICrud<UserWithAuthInfoModel, User>
     {
         /// <summary>
         /// Get all user roles awailable in the system (Database)
