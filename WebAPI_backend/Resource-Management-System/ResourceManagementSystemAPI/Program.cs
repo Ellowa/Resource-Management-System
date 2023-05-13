@@ -10,6 +10,7 @@ using BysinessServices.Services;
 using ResourceManagementSystemAPI.Middleware;
 using FluentValidation.AspNetCore;
 using System.Reflection;
+using BysinessServices.ModelsValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +23,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddFluentValidation(conf =>
 {
-    conf.RegisterValidatorsFromAssembly(typeof(Program).Assembly);
+    conf.RegisterValidatorsFromAssembly(typeof(ResourceValidation).Assembly);
     conf.AutomaticValidationEnabled = false;
 });
 

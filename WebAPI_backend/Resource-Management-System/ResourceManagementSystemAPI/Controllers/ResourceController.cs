@@ -6,8 +6,10 @@ using FluentValidation.AspNetCore;
 using FluentValidation.Internal;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using MySqlX.XDevAPI.Common;
+using System.Security.AccessControl;
 
 namespace ResourceManagementSystemAPI.Controllers
 {
@@ -16,10 +18,14 @@ namespace ResourceManagementSystemAPI.Controllers
     public class ResourceController : ControllerBase
     {
         private readonly IResourceService _resourceService;
+        private readonly IValidator<ResourceTypeModel> _resourceTypeValidator;
+        private readonly IValidator<ResourceModel> _resourceValidator;
 
-        public ResourceController(IResourceService resourceService)
+        public ResourceController(IResourceService resourceService, IValidator<ResourceTypeModel> resourceTypeValidator, IValidator<ResourceModel> resourceValidator)
         {
             _resourceService = resourceService;
+            _resourceTypeValidator = resourceTypeValidator;
+            _resourceValidator = resourceValidator;
         }
 
         // GET: api/resource
@@ -65,6 +71,14 @@ namespace ResourceManagementSystemAPI.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Create(ResourceModel resource)
         {
+            var validationResult = await _resourceValidator.ValidateAsync(resource);
+
+            if (!validationResult.IsValid)
+            {
+                validationResult.AddToModelState(this.ModelState);
+                return ValidationProblem(validationResult.Errors.ToString());
+            }
+
             var createdResource = await _resourceService.AddAsync(resource);
 
             return CreatedAtAction(nameof(GetById), new { id = createdResource.Id }, createdResource);
@@ -76,6 +90,14 @@ namespace ResourceManagementSystemAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update(int id, ResourceModel resource)
         {
+            var validationResult = await _resourceValidator.ValidateAsync(resource);
+
+            if (!validationResult.IsValid)
+            {
+                validationResult.AddToModelState(this.ModelState);
+                return ValidationProblem(validationResult.Errors.ToString());
+            }
+
             if (id != resource.Id) return BadRequest();
 
             await _resourceService.UpdateAsync(resource);
@@ -117,6 +139,14 @@ namespace ResourceManagementSystemAPI.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateResourceType(ResourceTypeModel resourceType)
         {
+            var validationResult = await _resourceTypeValidator.ValidateAsync(resourceType);
+
+            if (!validationResult.IsValid)
+            {
+                validationResult.AddToModelState(this.ModelState);
+                return ValidationProblem(validationResult.Errors.ToString());
+            }
+
             var createdResourceType = await _resourceService.AddResourceTypeAsync(resourceType);
 
             return CreatedAtAction(null, new { id = createdResourceType.Id }, createdResourceType);
@@ -128,6 +158,14 @@ namespace ResourceManagementSystemAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateResourceType(int id, ResourceTypeModel resourceType)
         {
+            var validationResult = await _resourceTypeValidator.ValidateAsync(resourceType);
+
+            if (!validationResult.IsValid)
+            {
+                validationResult.AddToModelState(this.ModelState);
+                return ValidationProblem(validationResult.Errors.ToString());
+            }
+
             if (id != resourceType.Id) return BadRequest();
 
             await _resourceService.UpdateResourceTypeAsync(resourceType);

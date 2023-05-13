@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BysinessServices.ModelsValidation
 {
-    internal class ResourceTypeValidation : AbstractValidator<ResourceTypeModel>
+    public class ResourceTypeValidation : AbstractValidator<ResourceTypeModel>
     {
         public ResourceTypeValidation()
         {

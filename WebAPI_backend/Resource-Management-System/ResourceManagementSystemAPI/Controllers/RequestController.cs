@@ -1,5 +1,9 @@
 ﻿using BysinessServices.Interfaces;
 using BysinessServices.Models;
+using BysinessServices.ModelsValidation;
+using DataAccess.Entities;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +14,12 @@ namespace ResourceManagementSystemAPI.Controllers
     public class RequestController : ControllerBase
     {
         private readonly IRequestService _requestService;
+        private readonly IValidator<RequestModel> _requestValidator;
 
-        public RequestController(IRequestService requestService)
+        public RequestController(IRequestService requestService, IValidator<RequestModel> requestValidator)
         {
             _requestService = requestService;
+            _requestValidator = requestValidator;
         }
 
         // GET: api/request
@@ -47,6 +53,14 @@ namespace ResourceManagementSystemAPI.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Create(RequestModel request)
         {
+            var validationResult = await _requestValidator.ValidateAsync(request);
+
+            if (!validationResult.IsValid)
+            {
+                validationResult.AddToModelState(this.ModelState);
+                return ValidationProblem(validationResult.Errors.ToString());
+            }
+
             var createdRequest = await _requestService.AddAsync(request);
 
             return CreatedAtAction(nameof(GetById), new { id = createdRequest.Id }, createdRequest);

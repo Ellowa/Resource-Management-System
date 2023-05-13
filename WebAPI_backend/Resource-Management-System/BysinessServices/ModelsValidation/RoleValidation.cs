@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BysinessServices.ModelsValidation
 {
-    internal class RoleValidation : AbstractValidator<RoleModel>
+    public class RoleValidation : AbstractValidator<RoleModel>
     {
         public RoleValidation()
         {
