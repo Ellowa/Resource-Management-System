@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace BysinessServices.ModelsValidation
 {
-    public class RoleValidation : AbstractValidator<RoleModel>
+    public class RoleValidator : AbstractValidator<RoleModel>
     {
-        public RoleValidation()
+        public RoleValidator()
         {
             RuleFor(r => r.Name).Length(4, 50);
             RuleFor(r => r.Id).Null();

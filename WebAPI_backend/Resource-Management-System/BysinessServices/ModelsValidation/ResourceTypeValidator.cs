@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace BysinessServices.ModelsValidation
 {
-    public class ResourceTypeValidation : AbstractValidator<ResourceTypeModel>
+    public class ResourceTypeValidator : AbstractValidator<ResourceTypeModel>
     {
-        public ResourceTypeValidation()
+        public ResourceTypeValidator()
         {
             RuleFor(r => r.TypeName).Length(4, 50);
             RuleFor(r => r.Id).Null();

@@ -23,7 +23,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddFluentValidation(conf =>
 {
-    conf.RegisterValidatorsFromAssembly(typeof(ResourceValidation).Assembly);
+    conf.RegisterValidatorsFromAssembly(typeof(ResourceValidator).Assembly);
     conf.AutomaticValidationEnabled = false;
 });
 
