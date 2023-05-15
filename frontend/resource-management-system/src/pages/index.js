@@ -3,7 +3,7 @@ import { RequestPage } from "../components/request-page/RequestPage";
 import { ResourcePage } from "../components/resource-page/ResourcePage";
 import { SideBar } from "../components/side-bar/SideBar";
 import { UserPage } from "../components/user-page/UserPage";
-import { withSessionSsr } from "./lib/config/withSession";
+import { withSessionSsr } from "../lib/config/withSession";
 
 export const getServerSideProps = withSessionSsr(
   async ({ req }) => {

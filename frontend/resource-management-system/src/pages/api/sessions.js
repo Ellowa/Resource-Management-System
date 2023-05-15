@@ -1,4 +1,4 @@
-import { withSessionRoute } from "../lib/config/withSession";
+import { withSessionRoute } from "@/src/lib/config/withSession";
 
 const VALID_EMAIL = "test@gmail.com";
 const VALID_PASSWORD = "password";
@@ -14,7 +14,7 @@ async function createSessionRoute(req, res) {
                 isAdmin: true
             };
             await req.session.save();
-            res.send({ ok: true });
+            return res.send({ ok: true });
         }
         return res.status(403).send("");
     }
