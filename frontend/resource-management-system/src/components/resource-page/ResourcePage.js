@@ -1,4 +1,6 @@
-import { GetAllResources } from "@/fetchers/ResourceController";
+import { DeleteResource, GetAllResources } from "@/fetchers/ResourceController";
+import ResourceAdder from "../forms/ResourceAdderForm";
+import ResourceChanger from "../forms/ResourceChangerForm";
 
 function TableData() {
     const { resources, isLoading, isError } = GetAllResources();
@@ -11,7 +13,8 @@ function TableData() {
                 resources.map((resource) => (
                     <tr key={resource.id}>
                         <td>{resource.name}</td>
-                        <td><button>Додати</button></td>
+                        <td><ResourceChanger data={resource} /></td>
+                        <td><button onClick={() => DeleteResource(resource.id)}>Видалити</button></td>
                     </tr>
                 ))
             }
@@ -24,7 +27,7 @@ export function ResourcePage() {
     return (
         <div className="main-page">
             <h2 className="main-text">Доступні ресурси</h2>
-
+            <ResourceAdder />
             <div className="table">
                 <div className="table__header">
                     <table cellPadding="0" cellSpacing="0" border="0">
