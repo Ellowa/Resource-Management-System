@@ -98,8 +98,6 @@ namespace ResourceManagementSystemAPI.Controllers
                 return ValidationProblem(validationResult.Errors.ToString());
             }
 
-            if (id != resource.Id) return BadRequest();
-
             await _resourceService.UpdateAsync(resource);
 
             return NoContent();
@@ -165,8 +163,6 @@ namespace ResourceManagementSystemAPI.Controllers
                 validationResult.AddToModelState(this.ModelState);
                 return ValidationProblem(validationResult.Errors.ToString());
             }
-
-            if (id != resourceType.Id) return BadRequest();
 
             await _resourceService.UpdateResourceTypeAsync(resourceType);
 
