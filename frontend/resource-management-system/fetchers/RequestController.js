@@ -1,8 +1,9 @@
 import { DELETERequest, GETRequest, POSTRequest, PUTRequest } from './APIController';
 
 // Добавить запрос
-export function AddRequest(data) {
-    POSTRequest(`/api/Request/`, data);
+export async function AddRequest(data) {
+    const [isError, errormessage] = await POSTRequest(`/api/Request/`, data);
+    if (isError) return errormessage;
 }
 
 // Подтвердить запрос

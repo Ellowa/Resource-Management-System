@@ -22,10 +22,10 @@ export function GETRequest(url) {
 export async function GETRequestSTD(url) {
     try {
         const res = await client.get(url);
-        return res.data;
+        return [false, res.data];
     } catch (error) {
         console.error(error);
-        return null;
+        return [true, error.response.data.message];
     }
 }
 
@@ -33,10 +33,10 @@ export async function POSTRequest(url, data) {
     try {
         await client.post(url, data);
         mutate(url);
-        return false;
+        return [false];
     } catch (error) {
         console.error(error);
-        return true;
+        return [true, error.response.data.message];
     }
 }
 
@@ -44,10 +44,10 @@ export async function PUTRequest(url, data) {
     try {
         await client.put(url, data);
         mutate(url);
-        return false;
+        return [false];
     } catch (error) {
         console.error(error);
-        return true;
+        return [true, error.response.data.message];
     }
 }
 
@@ -55,9 +55,9 @@ export async function DELETERequest(url, id) {
     try {
         await client.delete(`${url}${id}`);
         mutate(url);
-        return false;
+        return [false];
     } catch (error) {
         console.error(error);
-        return true;
+        return [true, error.response.data.message];
     }
 }

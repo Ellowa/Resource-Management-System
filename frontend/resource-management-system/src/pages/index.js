@@ -29,7 +29,6 @@ export default function Home(user) {
     <div className="page">
       <SideBar setPage={setPage} user={user} />
       {page ? <RequestPage></RequestPage> : <ResourcePage></ResourcePage>}
-
     </div>
   )
 }
