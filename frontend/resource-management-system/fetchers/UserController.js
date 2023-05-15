@@ -2,6 +2,7 @@ import { DELETERequest, GETRequest, POSTRequest, PUTRequest } from './APIControl
 
 //Добавить учетную запись
 export async function AddUser(data) {
+    console.log(data);
     const [isError, errormessage] = await POSTRequest(`/api/User/add`, data);
     if (isError) return errormessage;
 }
@@ -13,8 +14,8 @@ export async function ChangeUser(id, data) {
 }
 
 //Удалить учётную запись
-export async function DeleteUser() {
-    const [isError, errormessage] = await DELETERequest(`/api/User/delete/${id}`);
+export async function DeleteUser(id) {
+    const [isError, errormessage] = await DELETERequest(`/api/User/delete/`, id);
     if (isError) return errormessage;
 }
 
