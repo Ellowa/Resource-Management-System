@@ -26,13 +26,13 @@ function ResourceChangerForm(resource) {
         <form onSubmit={handleSubmit} style={{ position: "absolute, top: 50%, left: 50%" }} >
             <label htmlFor="name">Name</label>
             <input type="text" id="name" name="name" defaultValue={resource.name} required />
-
+            <br />
             <label htmlFor="serialNumber">Serial Number</label>
             <input type="text" id="serialNumber" name="serialNumber" defaultValue={resource.serialNumber} required />
-
+            <br />
             <label htmlFor="resourceTypeId">Resource Type ID</label>
             <input type="number" id="resourceTypeId" name="resourceTypeId" defaultValue={resource.resourceTypeId} required />
-
+            <br />
             <button type="submit">Submit</button>
         </form>
     )

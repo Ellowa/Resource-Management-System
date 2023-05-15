@@ -26,19 +26,19 @@ function RequestAdderForm() {
         <form onSubmit={handleSubmit} style={{ position: "absolute, top: 50%, left: 50%" }} >
             <label htmlFor="start">Start</label>
             <input type="datetime-local" id="start" name="start" required />
-
+            <br />
             <label htmlFor="end">End</label>
             <input type="datetime-local" id="end" name="end" required />
-
+            <br />
             <label htmlFor="purpose">Purpose</label>
             <input type="text" id="purpose" name="purpose" required />
-
+            <br />
             <label htmlFor="resourceId">Resource ID</label>
             <input type="number" id="resourceId" name="resourceId" required />
-
+            <br />
             <label htmlFor="userId">User ID</label>
             <input type="number" id="userId" name="userId" required />
-
+            <br />
             <button type="submit">Submit</button>
         </form>
     )
