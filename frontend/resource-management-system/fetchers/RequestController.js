@@ -7,18 +7,21 @@ export async function AddRequest(data) {
 }
 
 // Подтвердить запрос
-export function ConfirmRequest(id) {
-    PUTRequest(`/api/Request/confirm/${id}`, null);
+export async function ConfirmRequest(id) {
+    const [isError, errormessage] = await PUTRequest(`/api/Request/confirm/${id}`, null);
+    if (isError) return errormessage;
 }
 
 // Удалить запрос
-export function DeleteRequest(id) {
-    DELETERequest(`/api/Request/${id}`);
+export async function DeleteRequest(id) {
+    const [isError, errormessage] = await DELETERequest(`/api/Request/${id}`);
+    if (isError) return errormessage;
 }
 
 // Отклонить запрос
-export function DenyRequest(id) {
-    DELETERequest(`/api/Request/deny/${id}`);
+export async function DenyRequest(id) {
+    const [isError, errormessage] = await DELETERequest(`/api/Request/deny/${id}`);
+    if (isError) return errormessage;
 }
 
 // Просмотр списка запросов

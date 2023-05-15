@@ -1,18 +1,21 @@
 import { DELETERequest, GETRequest, POSTRequest, PUTRequest } from './APIController';
 
 //Добавить учетную запись
-export function AddUser(data) {
-    POSTRequest(`/api/User/add`, data);
+export async function AddUser(data) {
+    const [isError, errormessage] = await POSTRequest(`/api/User/add`, data);
+    if (isError) return errormessage;
 }
 
 //Изменить данные учентной записи по ID
-export function ChangeUser(id, data) {
-    PUTRequest(`/api/User/change/${id}`, data);
+export async function ChangeUser(id, data) {
+    const [isError, errormessage] = await PUTRequest(`/api/User/change/${id}`, data);
+    if (isError) return errormessage;
 }
 
 //Удалить учётную запись
-export function DeleteUser() {
-    DELETERequest(`/api/User/delete/${id}`);
+export async function DeleteUser() {
+    const [isError, errormessage] = await DELETERequest(`/api/User/delete/${id}`);
+    if (isError) return errormessage;
 }
 
 //Просмотр списка всех учётных записей

@@ -1,34 +1,40 @@
 import { DELETERequest, GETRequest, POSTRequest, PUTRequest } from './APIController';
 
 // Добавить ресурс
-export function AddResource(data) {
-    POSTRequest(`/api/Resource/`, data);
+export async function AddResource(data) {
+    const [isError, errormessage] = await POSTRequest(`/api/Resource/`, data);
+    if (isError) return errormessage;
 }
 
 // Добавить тип ресурса
-export function AddResourceType(data) {
-    POSTRequest(`/api/Resource/type/`, data);
+export async function AddResourceType(data) {
+    const [isError, errormessage] = await POSTRequest(`/api/Resource/type/`, data);
+    if (isError) return errormessage;
 }
 
 // Изменить данные ресурса (имя, серийный номер, тип) по id (id изменить нельзя)
-export function ChangeResourceByID(id, data) {
-    PUTRequest(`/api/Resource/${id}`, data);
+export async function ChangeResourceByID(id, data) {
+    const [isError, errormessage] = await PUTRequest(`/api/Resource/${id}`, data);
+    if (isError) return errormessage;
 
 }
 
 // Изменить данные типа ресурса
-export function ChangeResourceType(id, data) {
-    PUTRequest(`/api/Resource/type/${id}`, data);
+export async function ChangeResourceType(id, data) {
+    const [isError, errormessage] = await PUTRequest(`/api/Resource/type/${id}`, data);
+    if (isError) return errormessage;
 }
 
 // Удалить ресурс
-export function DeleteResource(id) {
-    DELETERequest(`/api/Resource/`, id);
+export async function DeleteResource(id) {
+    const [isError, errormessage] = await DELETERequest(`/api/Resource/`, id);
+    if (isError) return errormessage;
 }
 
 // Удалить тип ресурса
-export function DeleteResourceType(id) {
-    DELETERequest(`/api/Resource/type/${id}`);
+export async function DeleteResourceType(id) {
+    const [isError, errormessage] = await DELETERequest(`/api/Resource/type/${id}`);
+    if (isError) return errormessage;
 }
 
 // Просмотр списка всех ресурсов
