@@ -33,13 +33,23 @@ export async function DeleteResource(id) {
 
 // Удалить тип ресурса
 export async function DeleteResourceType(id) {
-    const [isError, errormessage] = await DELETERequest(`/api/Resource/type/${id}`);
+    const [isError, errormessage] = await DELETERequest(`/api/Resource/type/`, id);
     if (isError) return errormessage;
 }
 
 // Просмотр списка всех ресурсов
 export function GetAllResources() {
     const { data, error, isLoading } = GETRequest(`/api/Resource/`)
+
+    return {
+        resources: data,
+        isLoading,
+        isError: error
+    }
+}
+
+export function GetAllResourcesWithDetails() {
+    const { data, error, isLoading } = GETRequest(`/api/Resource/details`)
 
     return {
         resources: data,

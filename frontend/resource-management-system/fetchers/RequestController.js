@@ -14,13 +14,13 @@ export async function ConfirmRequest(id) {
 
 // Удалить запрос
 export async function DeleteRequest(id) {
-    const [isError, errormessage] = await DELETERequest(`/api/Request/${id}`);
+    const [isError, errormessage] = await DELETERequest(`/api/Request/`, id);
     if (isError) return errormessage;
 }
 
 // Отклонить запрос
 export async function DenyRequest(id) {
-    const [isError, errormessage] = await DELETERequest(`/api/Request/deny/${id}`);
+    const [isError, errormessage] = await DELETERequest(`/api/Request/deny/`, id);
     if (isError) return errormessage;
 }
 
