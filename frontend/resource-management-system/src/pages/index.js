@@ -6,7 +6,7 @@ import { UserPage } from "../components/user-page/UserPage";
 import { withSessionSsr } from "./lib/config/withSession";
 
 export const getServerSideProps = withSessionSsr(
-  async ({ req, res }) => {
+  async ({ req }) => {
     const user = req.session.user;
 
     if (!user) {

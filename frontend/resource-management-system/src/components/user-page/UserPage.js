@@ -1,5 +1,5 @@
 import { DeleteUser, GetAllUsers } from "@/fetchers/UserController";
-
+import UserAdder from "../forms/UserAdderForm";
 
 function TableData() {
     const { users, isLoading, isError } = GetAllUsers();
@@ -25,6 +25,7 @@ export function UserPage() {
     return (
         <div className="main-page">
             <h2 className="main-text">Користувачі</h2>
+            <UserAdder />
             <div className="table">
                 <div className="table__header">
                     <table cellPadding="0" cellSpacing="0" border="0">
