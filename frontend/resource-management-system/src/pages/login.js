@@ -26,20 +26,24 @@ export default function Login() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>
-                    Email: <input type="text" ref={emailInput} />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Password: <input type="password" ref={passwordInput} />
-                </label>
-            </div>
-            <div>
-                <button type="submit">Sign in</button>
-            </div>
-        </form>
+        <>
+            <div>Temp login data: login: test@gmail.com, password: password</div>
+            <br />
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label>
+                        Email: <input type="text" ref={emailInput} />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Password: <input type="password" ref={passwordInput} />
+                    </label>
+                </div>
+                <div>
+                    <button type="submit">Sign in</button>
+                </div>
+            </form>
+        </>
     );
 }
