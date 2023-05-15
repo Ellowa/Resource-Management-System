@@ -1,5 +1,6 @@
 import { DeleteUser, GetAllUsers } from "@/fetchers/UserController";
 import UserAdder from "../forms/UserAdderForm";
+import UserChanger from "../forms/UserChangerForm";
 
 function TableData() {
     const { users, isLoading, isError } = GetAllUsers();
@@ -12,6 +13,7 @@ function TableData() {
                 users.map((user) => (
                     <tr key={user.id}>
                         <td>{user.lastName}</td>
+                        <td><UserChanger data={user} /></td>
                         <td><button onClick={() => DeleteUser(user.id)}>Видалити</button></td>
                     </tr>
                 ))
