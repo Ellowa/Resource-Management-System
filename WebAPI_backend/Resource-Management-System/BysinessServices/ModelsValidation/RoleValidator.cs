@@ -13,7 +13,6 @@ namespace BysinessServices.ModelsValidation
         public RoleValidator()
         {
             RuleFor(r => r.Name).Length(4, 50);
-            RuleFor(r => r.Id).Null();
         }
     }
 }

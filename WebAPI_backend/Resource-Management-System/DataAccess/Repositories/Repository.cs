@@ -1,4 +1,5 @@
-﻿using DataAccess.Interfaces;
+﻿using DataAccess.Entities;
+using DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories
 {
-    public class Repository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+    public class Repository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity, new()
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<TEntity> _dbSet;
@@ -22,6 +23,9 @@ namespace DataAccess.Repositories
 
         public async Task AddAsync(TEntity entity)
         {
+            // needed for autogen Id on the DB side
+            entity.Id = 0;
+
             await _dbSet.AddAsync(entity);
         }
 

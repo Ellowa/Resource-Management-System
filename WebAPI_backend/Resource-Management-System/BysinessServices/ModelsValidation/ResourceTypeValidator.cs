@@ -13,7 +13,6 @@ namespace BysinessServices.ModelsValidation
         public ResourceTypeValidator()
         {
             RuleFor(r => r.TypeName).Length(4, 50);
-            RuleFor(r => r.Id).Null();
         }
     }
 }
