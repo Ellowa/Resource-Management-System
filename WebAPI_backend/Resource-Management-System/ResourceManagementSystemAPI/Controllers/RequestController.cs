@@ -44,7 +44,7 @@ namespace ResourceManagementSystemAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(int id)
         {
-            var request = await _requestService.GetByIdAsync(id);
+            var request = await _requestService.GetByIdAsync(id, req => req.Resource);
             return request == null ? NotFound() : Ok(request);
         }
 
