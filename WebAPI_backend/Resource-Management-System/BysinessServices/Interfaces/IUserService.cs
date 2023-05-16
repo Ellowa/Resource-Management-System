@@ -52,6 +52,8 @@ namespace BysinessServices.Interfaces
         /// <returns>Enumerator for "list" of roles</returns>
         Task<IEnumerable<UserProtectedModel>> GetAllUserWithoutProtectedInfo();
 
+        Task<int?> GetUserIdByLogin(string login);
+
         Task<UserProtectedModel> GetUserWithoutProtectedInfoById(int id);
 
         UserWithAuthInfoModel ConvertToUserWithAuth(UserUnsafeModel unsafeUser, byte[] passwordHash, byte[] passwordSalt);

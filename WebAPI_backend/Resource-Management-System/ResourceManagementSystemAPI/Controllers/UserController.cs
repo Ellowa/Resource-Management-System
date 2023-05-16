@@ -51,7 +51,7 @@ namespace ResourceManagementSystemAPI.Controllers
         /// </summary>
         /// <param name="user">new user</param>
         /// <returns>result of creating</returns>
-        [HttpPost("add")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Create(UserUnsafeModel user)
         {
@@ -70,7 +70,7 @@ namespace ResourceManagementSystemAPI.Controllers
         /// <param name="id">id of user to change</param>
         /// <param name="user">new user unformation</param>
         /// <returns>status codes</returns>
-        [HttpPut("change/{id}")]
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update(int id, UserUnsafeModel user)
@@ -91,7 +91,7 @@ namespace ResourceManagementSystemAPI.Controllers
         /// </summary>
         /// <param name="id">id of user to delete</param>
         /// <returns>status code</returns>
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(int id)
@@ -103,19 +103,28 @@ namespace ResourceManagementSystemAPI.Controllers
             return NoContent();
         }
 
-
-
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////User Roles
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // Get: api/user/role
+        /// <summary>
+        /// GET: api/user/role
+        /// Get list of all roles
+        /// </summary>
+        /// <returns>list of roles</returns>
         [HttpGet("role")]
         public async Task<IEnumerable<RoleModel>> GetRole()
         {
             return await _userService.GetAllRolesAsync();
         }
 
+        /// <summary>
+        /// PUT: api/user/role/2
+        /// Update information about role in the system
+        /// </summary>
+        /// <param name="id">id of role</param>
+        /// <param name="role">updated information</param>
+        /// <returns>the object saved in the system</returns>
         [HttpPut("role/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -128,6 +137,12 @@ namespace ResourceManagementSystemAPI.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// POST: api/user/role
+        /// Creating new user role
+        /// </summary>
+        /// <param name="role">new role object</param>
+        /// <returns>the object opf role created in the system</returns>
         [HttpPost("role")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateRole(RoleModel role)
@@ -136,8 +151,12 @@ namespace ResourceManagementSystemAPI.Controllers
             return CreatedAtAction(null, null, role);
         }
 
-
-
+        /// <summary>
+        /// DELETE: api/role/4
+        /// Delete the role from system
+        /// </summary>
+        /// <param name="id">id of role to delete</param>
+        /// <returns></returns>
         [HttpDelete("role/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -151,6 +170,5 @@ namespace ResourceManagementSystemAPI.Controllers
             await _userService.DeleteRoleAsync(id);
             return NoContent();
         }
-
     }
 }

@@ -62,7 +62,7 @@ namespace ResourceManagementSystemAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(int id)
         {
-            var resource = await _resourceService.GetByIdAsync(id);
+            var resource = await _resourceService.GetByIdAsync(id, res => res.ResourceType);
             return resource == null ? NotFound() : Ok(resource);
         }
 
@@ -111,7 +111,7 @@ namespace ResourceManagementSystemAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(int id)
         {
-            var resourceToDelete = await _resourceService.GetByIdAsync(id);
+            var resourceToDelete = await _resourceService.GetByIdAsync(id, res => res.ResourceType);
             if (resourceToDelete == null) return NotFound();
 
             await _resourceService.DeleteAsync(id);

@@ -33,14 +33,14 @@ namespace BysinessServices.Services
 
         public async Task AddRefreshTokenToUserByIdAsync(int userId, string refreshToken)
         {
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _userRepository.GetByIdAsync(userId, u => u.Role);
             user.JwtRefreshToken = refreshToken;
             _userRepository.Update(user);
         }
 
         public async Task<bool> VerifyPasswordHash(int userId, string password)
         {
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _userRepository.GetByIdAsync(userId, u => u.Role);
             using (var hmac = new HMACSHA256(user.PasswordSalt)) 
             {
                 byte[] computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
@@ -89,7 +89,6 @@ namespace BysinessServices.Services
                 claims: claims,
                 signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
-
         }
 
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] salt)
@@ -103,7 +102,7 @@ namespace BysinessServices.Services
 
         public async Task RemoveRefreshTokenFromUserByIdAsync(int userId)
         {
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _userRepository.GetByIdAsync(userId, u => u.Role);
             user.JwtRefreshToken = "";
             _userRepository.Update(user);
         }

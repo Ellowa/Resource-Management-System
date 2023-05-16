@@ -46,9 +46,9 @@ namespace BysinessServices.Services
             return _mapper.Map<IEnumerable<TModel>>(entities);
         }
 
-        public virtual async Task<TModel> GetByIdAsync(int id)
+        public virtual async Task<TModel> GetByIdAsync(int id, params Expression<Func<TEntity, object>>[] includes)
         {
-            var entitie = await _repository.GetByIdAsync(id);
+            var entitie = await _repository.GetByIdAsync(id, includes);
             return _mapper.Map<TModel>(entitie);
         }
 

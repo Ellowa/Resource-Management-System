@@ -3,6 +3,7 @@ using BysinessServices.Interfaces;
 using BysinessServices.Models;
 using DataAccess.Entities;
 using DataAccess.Interfaces;
+using DataAccess.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,7 +65,7 @@ namespace BysinessServices.Services
 
         public async Task UpdateUserRole(int userId, RoleModel newRole)
         {
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _userRepository.GetByIdAsync(userId, u => u.Role);
             user.Role = _mapper.Map<AdditionalRole>(newRole);
             _userRepository.Update(user);
             await _unitOfWork.SaveAsync();
@@ -78,7 +79,7 @@ namespace BysinessServices.Services
 
         public async Task<UserProtectedModel> GetUserWithoutProtectedInfoById(int id)
         {
-            var userWithoutProtectedInfo = await _userRepository.GetByIdAsync(id);
+            var userWithoutProtectedInfo = await _userRepository.GetByIdAsync(id, u => u.Role);
             return _mapper.Map<UserProtectedModel>(userWithoutProtectedInfo);
         }
 
@@ -100,5 +101,20 @@ namespace BysinessServices.Services
                 JwtRefreshToken = ""
             };
         }
+
+        public async Task<int?> GetUserIdByLogin(string login)
+        {
+            var users = await _userRepository.GetAllAsync();
+            var user = users.FirstOrDefault(u => u.Login == login);
+            return user is not null ? user.Id : null;
+        }
+
+        /*
+        public override async Task<UserWithAuthInfoModel> GetByIdAsync(int id)
+        {
+            var entitie = await _userRepository.GetByIdAsync(id);
+            return _mapper.Map<UserWithAuthInfoModel>(entitie);
+        }
+        /**/
     }
 }

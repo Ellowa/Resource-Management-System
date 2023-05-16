@@ -13,7 +13,7 @@ namespace BysinessServices.Interfaces
 
         Task<IEnumerable<TModel>> GetAllAsync(params Expression<Func<TEntity, object>>[] includes);
 
-        Task<TModel> GetByIdAsync(int id);
+        Task<TModel> GetByIdAsync(int id, params Expression<Func<TEntity, object>>[] includes);
 
         Task<TModel> AddAsync(TModel model);
 

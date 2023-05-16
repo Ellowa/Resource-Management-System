@@ -20,7 +20,7 @@ namespace BysinessServices.Models
 
         public int RoleId { get; set; }
 
-        public string RoleName { get; set; }
+        public string? RoleName { get; set; }
 
         public List<RequestModel>? Requests { get; set; }
 

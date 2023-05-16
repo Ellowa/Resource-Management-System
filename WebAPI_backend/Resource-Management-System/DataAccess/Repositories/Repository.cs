@@ -53,9 +53,14 @@ namespace DataAccess.Repositories
             return query;
         }
 
-        public async Task<TEntity> GetByIdAsync(int id)
+        public async Task<TEntity> GetByIdAsync(int id, params Expression<Func<TEntity, object>>[] includes)
         {
-            return await _dbSet.FindAsync(id);
+            IQueryable<TEntity> query = _dbSet;
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+            return await query.FirstAsync(e => e.Id == id);
         }
 
         public void Update(TEntity entity)
