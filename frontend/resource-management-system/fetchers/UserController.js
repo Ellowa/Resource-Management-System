@@ -2,19 +2,19 @@ import { DELETERequest, GETRequest, POSTRequest, PUTRequest } from './APIControl
 
 //Добавить учетную запись
 export async function AddUser(data) {
-    const [isError, errormessage] = await POSTRequest(`/api/User/add`, data);
+    const [isError, errormessage] = await POSTRequest(`/api/User/`, data);
     if (isError) return errormessage;
 }
 
 //Изменить данные учентной записи по ID
 export async function ChangeUserByID(id, data) {
-    const [isError, errormessage] = await PUTRequest(`/api/User/change/${id}`, data);
+    const [isError, errormessage] = await PUTRequest(`/api/User/${id}`, data);
     if (isError) return errormessage;
 }
 
 //Удалить учётную запись
 export async function DeleteUser(id) {
-    const [isError, errormessage] = await DELETERequest(`/api/User/delete/`, id);
+    const [isError, errormessage] = await DELETERequest(`/api/User/`, id);
     if (isError) return errormessage;
 }
 
