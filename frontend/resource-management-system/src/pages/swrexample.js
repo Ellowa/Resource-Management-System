@@ -1,6 +1,7 @@
 import { AddRequest } from "@/fetchers/RequestController";
 import { AddResource, DeleteResource, GetAllResources, GetResourceByID } from "@/fetchers/ResourceController";
-
+import { signIn, signOut } from "next-auth/react";
+import useAuth from "../components/useAuth";
 function Resources() {
     const { resources, isLoading, isError } = GetAllResources();
 
@@ -114,6 +115,14 @@ function ErrorTester() {
     )
 }
 
+function IsAuthenticated() {
+    const isAuthenticated = useAuth(true);
+    if (!isAuthenticated) {
+        return <div>Not authenticated</div>
+    }
+    return <div>Authenticated</div>
+}
+
 export default function Example() {
     return (
         <>
@@ -131,6 +140,16 @@ export default function Example() {
             <br />
             Error test (Request adder):
             <ErrorTester />
+            <br />
+            LoginTest:
+            <IsAuthenticated />
+            <br />
+            <button onClick={() => signIn('credentials', { login: 'test_admin', password: 'test_admin' })}>
+                Sign in
+            </button>
+            <button onClick={() => signOut()}>
+                Sign out
+            </button>
         </>
     )
 }
