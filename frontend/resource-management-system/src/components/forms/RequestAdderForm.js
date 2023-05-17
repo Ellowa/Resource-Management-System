@@ -1,5 +1,6 @@
 import { AddRequest } from "@/fetchers/RequestController";
 import { useState } from "react";
+import Modal from "../modal/Modal";
 
 function RequestAdderForm() {
     const handleSubmit = async (e) => {
@@ -23,22 +24,22 @@ function RequestAdderForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit} style={{ position: "absolute, top: 50%, left: 50%" }} >
+        <form className="formUserAdder" onSubmit={handleSubmit} style={{ position: "absolute, top: 50%, left: 50%" }} >
             <label htmlFor="start">Start</label>
             <input type="datetime-local" id="start" name="start" required />
-            <br />
+
             <label htmlFor="end">End</label>
             <input type="datetime-local" id="end" name="end" required />
-            <br />
+
             <label htmlFor="purpose">Purpose</label>
             <input type="text" id="purpose" name="purpose" required />
-            <br />
+
             <label htmlFor="resourceId">Resource ID</label>
             <input type="number" id="resourceId" name="resourceId" required />
-            <br />
+
             <label htmlFor="userId">User ID</label>
             <input type="number" id="userId" name="userId" required />
-            <br />
+
             <button type="submit">Submit</button>
         </form>
     )
@@ -52,9 +53,10 @@ export default function RequestAdder() {
     }
 
     return (
-        <div>
-            <button onClick={handleButtonClick}>{showForm ? "Закрити" : "Додати"}</button>
-            {showForm && <RequestAdderForm />}
+        <div className="buttonAdd">
+            <button className="buttonAdd__user" onClick={handleButtonClick}>{showForm ? "Закрити" : "Додати"}</button>
+            {showForm && <Modal funcName = {RequestAdderForm}
+                                closeModal = {setShowForm}/>}
         </div>
     )
 }

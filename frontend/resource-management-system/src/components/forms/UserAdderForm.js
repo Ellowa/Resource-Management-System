@@ -1,7 +1,8 @@
 import { AddUser } from "@/fetchers/UserController";
 import { useState } from "react";
+import Modal from "../modal/Modal";
 
-function UserAdderForm() {
+export function UserAdderForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -25,29 +26,29 @@ function UserAdderForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit} style={{ position: "absolute, top: 50%, left: 50%" }} >
+        <form className="formUserAdder" onSubmit={handleSubmit} >
             <label htmlFor="firstName">First Name</label>
             <input type="text" id="firstName" name="firstName" required />
-            <br />
+            
             <label htmlFor="secondName">Second Name</label>
             <input type="text" id="secondName" name="secondName" required />
-            <br />
+            
             <label htmlFor="lastName">Last Name</label>
             <input type="text" id="lastName" name="lastName" required />
-            <br />
+            
             <label htmlFor="login">Login</label>
             <input type="text" id="login" name="login" required />
-            <br />
+            
             <label htmlFor="roleId">Role ID</label>
             <select id="roleId" name="roleId" required >
                 <option value="10">User</option>
                 <option value="12">Manager</option>
                 <option value="13">Admin</option>
             </select>
-            <br />
+           
             <label htmlFor="password">Password</label>
             <input type="password" id="password" name="password" required />
-            <br />
+            
             <button type="submit">Submit</button>
         </form>
     )
@@ -61,9 +62,10 @@ export default function UserAdder() {
     }
 
     return (
-        <div>
-            <button onClick={handleButtonClick}>{showForm ? "Закрити" : "Додати"}</button>
-            {showForm && <UserAdderForm />}
+        <div className="buttonAdd">
+            <button className="buttonAdd__user" onClick={handleButtonClick}>{showForm ? "Закрити" : "Додати"}</button>
+            {showForm && <Modal funcName = {UserAdderForm}
+                                closeModal = {setShowForm}/>}
         </div>
     )
 }

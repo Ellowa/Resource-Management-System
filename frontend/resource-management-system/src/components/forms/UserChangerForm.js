@@ -1,5 +1,6 @@
 import { ChangeUserByID } from "@/fetchers/UserController";
 import { useState } from "react";
+import Modal from "../modal/Modal";
 
 function UserChangerForm(user) {
 
@@ -29,29 +30,23 @@ function UserChangerForm(user) {
     }
 
     return (
-        <form onSubmit={handleSubmit} style={{ position: "absolute, top: 50%, left: 50%" }} >
+        <form className="formUserAdder formUserChange" onSubmit={handleSubmit} >
             <label htmlFor="firstName">First Name</label>
             <input type="text" id="firstName" name="firstName" defaultValue={user.firstName} required />
-            <br />
             <label htmlFor="secondName">Second Name</label>
             <input type="text" id="secondName" name="secondName" defaultValue={user.secondName} required />
-            <br />
             <label htmlFor="lastName">Last Name</label>
             <input type="text" id="lastName" name="lastName" defaultValue={user.lastName} required />
-            <br />
             <label htmlFor="login">Login</label>
             <input type="text" id="login" name="login" defaultValue={user.login} required />
-            <br />
             <label htmlFor="roleId">Role</label>
             <select id="roleId" name="roleId" defaultValue={user.roleId} required >
                 <option value="10">User</option>
                 <option value="12">Manager</option>
                 <option value="13">Admin</option>
             </select>
-            <br />
             <label htmlFor="password">Password</label>
             <input type="password" id="password" name="password" required />
-            <br />
             <button type="submit">Submit</button>
         </form>
     )
@@ -67,7 +62,9 @@ export default function UserChanger(data) {
     return (
         <div>
             <button onClick={handleButtonClick}>{showForm ? "Закрити" : "Змінити"}</button>
-            {showForm && <UserChangerForm user={data.data} />}
+            {showForm && <Modal funcName = {UserChangerForm}
+                                closeModal = {setShowForm}
+                                user={data.data}/>}
         </div>
     )
 }
