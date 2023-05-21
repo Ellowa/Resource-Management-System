@@ -9,16 +9,18 @@ async function refreshAccesToken(tokenObject) {
             token: tokenObject.refreshToken,
         });
 
+        const decodedToken = jwt.decode(tokenResponse.data.accessToken);
+
         return {
             ...tokenObject,
             accessToken: tokenResponse.data.accessToken,
-            accessTokenExpiry: tokenResponse.data.accessTokenExpiry,
+            accessTokenExpiry: decodedToken.exp,
             refreshToken: tokenResponse.data.refreshToken,
         }
     } catch (error) {
         return {
             ...tokenObject,
-            error: "RefreshAccessTokenError",
+            // error: "RefreshAccessTokenError", //Вернуть когда сделают рефреш
         }
     }
 }
@@ -54,7 +56,7 @@ const callbacks = {
             token.refreshToken = user.refreshToken;
         }
 
-        console.log(token);
+        // console.log(token);
 
         const shouldRefreshTime = Math.round((token.accessTokenExpiry - 60 * 60 * 1000) - Date.now())
 

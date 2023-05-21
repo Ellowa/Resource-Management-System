@@ -1,6 +1,6 @@
 import { AddRequest } from "@/fetchers/RequestController";
 import { AddResource, DeleteResource, GetAllResources, GetResourceByID } from "@/fetchers/ResourceController";
-import { signIn, signOut } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import useAuth from "../components/useAuth";
 function Resources() {
     const { resources, isLoading, isError } = GetAllResources();
@@ -117,10 +117,22 @@ function ErrorTester() {
 
 function IsAuthenticated() {
     const isAuthenticated = useAuth(true);
+
+    const sessionReciever = async () => {
+        const sess = await getSession();
+        console.log(sess);
+    }
+
     if (!isAuthenticated) {
         return <div>Not authenticated</div>
     }
-    return <div>Authenticated</div>
+    return (
+        <>
+            <div>Authenticated</div>
+            <br />
+            <button onClick={sessionReciever}>Session Reciever</button>
+        </>
+    )
 }
 
 export default function Example() {
@@ -143,13 +155,6 @@ export default function Example() {
             <br />
             LoginTest:
             <IsAuthenticated />
-            <br />
-            <button onClick={() => signIn('credentials', { login: 'test_admin', password: 'test_admin' })}>
-                Sign in
-            </button>
-            <button onClick={() => signOut()}>
-                Sign out
-            </button>
         </>
     )
 }

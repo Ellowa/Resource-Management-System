@@ -1,4 +1,4 @@
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 
 export default function Login() {
     const handleSubmit = async (e) => {
@@ -16,12 +16,14 @@ export default function Login() {
             <form onSubmit={handleSubmit}>
                 <label htmlFor="login">Login</label>
                 <input type="text" id="login" name="login" required />
-
+                <br />
                 <label htmlFor="password">Password</label>
                 <input type="password" id="password" name="password" required />
-
-                <button type="submit">Submit</button>
+                <br />
+                <button type="submit">Sign In</button>
             </form>
+            <br />
+            <button onClick={() => signOut()}>Sign Out</button>
         </>
     );
 }
