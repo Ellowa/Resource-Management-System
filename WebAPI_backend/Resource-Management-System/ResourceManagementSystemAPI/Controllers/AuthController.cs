@@ -40,7 +40,7 @@ namespace ResourceManagementSystemAPI.Controllers
                 JwtPairModel jwtPair = new JwtPairModel()
                 {
                     AccessToken = _authService.GenerateJwtAccessToken(user, TimeSpan.FromMinutes(15)),
-                    RefreshToken = _authService.GenerateJwtRefreshToken(user)
+                    RefreshToken = _authService.GenerateJwtRefreshToken(user, TimeSpan.FromDays(30))
                 };
 
                 await _authService.AddRefreshTokenToUserByIdAsync(user.Id ?? -1, jwtPair.RefreshToken);

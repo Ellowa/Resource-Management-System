@@ -51,42 +51,33 @@ namespace BysinessServices.Services
         public string GenerateJwtAccessToken(UserWithAuthInfoModel user, TimeSpan expiretionTime)
         {
             //"JwtSettings:AccessTokenKey"
-            List<Claim> claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Login),
-                new Claim(ClaimTypes.Role, user.RoleName)
-            };
-
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+            return GenerateJwtToken(user, expiretionTime, System.Text.Encoding.UTF8.GetBytes(
                 _config.GetSection("JwtSettings:AccessTokenKey").Value));
-
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
-            var token = new JwtSecurityToken(
-                claims: claims,
-                expires : DateTime.UtcNow + expiretionTime,
-                signingCredentials: credentials);
-            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public string GenerateJwtRefreshToken(UserWithAuthInfoModel user)
+        public string GenerateJwtRefreshToken(UserWithAuthInfoModel user, TimeSpan expiretionTime)
         {
             //"JwtSettings:RefreshTokenKey"
+            return GenerateJwtToken(user, expiretionTime, System.Text.Encoding.UTF8.GetBytes(
+                _config.GetSection("JwtSettings:RefreshTokenKey").Value));
+        }
+
+        private string GenerateJwtToken(UserWithAuthInfoModel user, TimeSpan expiretionTime, byte[] securityKey) 
+        {
             List<Claim> claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Login),
-                new Claim(ClaimTypes.Role, user.RoleName)
+                new Claim("nameidentifier", user.Id.ToString()),
+                new Claim("name", user.Login),
+                new Claim("role", user.RoleName)
             };
 
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
-                _config.GetSection("JwtSettings:RefreshTokenKey").Value));
+            var key = new SymmetricSecurityKey(securityKey);
 
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
             var token = new JwtSecurityToken(
                 claims: claims,
+                expires: DateTime.UtcNow + expiretionTime,
                 signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

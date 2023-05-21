@@ -50,6 +50,7 @@ builder.Services
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JwtSettings:AccessTokenKey").Value)),
+            ValidateLifetime = true,
             ValidateIssuer = false,
             ValidateAudience = false
         };
