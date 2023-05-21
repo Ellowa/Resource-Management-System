@@ -1,67 +1,15 @@
-html,
-body,
-div,
-span,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-a,
-address,
-big,
-cite,
-code,
-del,
-img,
-q,
-small,
-strong,
-sub,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote,
+a, address, big, cite, code,
+del, img, q,
+small, strong, sub, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
 time {
   margin: 0;
   padding: 0;
@@ -72,17 +20,8 @@ time {
 }
 
 /* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
   display: block;
 }
 
@@ -92,27 +31,23 @@ body {
 
 body * {
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-ol,
-ul {
+ol, ul {
   list-style: none;
 }
 
-blockquote,
-q {
+blockquote, q {
   quotes: none;
 }
 
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
+blockquote:before, blockquote:after,
+q:before, q:after {
   content: "";
   content: none;
 }
@@ -126,22 +61,18 @@ table {
   font-family: RailwayB;
   src: url(../fonts/Raleway-Bold.ttf);
 }
-
 @font-face {
   font-family: RailwayL;
   src: url(../fonts/Raleway-Light.ttf);
 }
-
 @font-face {
   font-family: RailwayM;
   src: url(../fonts/Raleway-Medium.ttf);
 }
-
 @font-face {
   font-family: RailwayR;
   src: url(../fonts/Raleway-Regular.ttf);
 }
-
 .page {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -158,16 +89,15 @@ table {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-size: 3vh;
   color: #FFFFFF;
   font-family: RailwayR, "Courier New", Courier, monospace;
 }
-
 .side-bar__img {
   background-image: url(../images/logo-removebg-preview.png);
   margin-top: 5vh;
@@ -177,7 +107,6 @@ table {
   background-repeat: no-repeat;
   background-size: cover;
 }
-
 .side-bar__menu {
   width: 100%;
   height: 75px;
@@ -185,18 +114,16 @@ table {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   cursor: pointer;
 }
-
 .side-bar__menu-first {
   margin-top: 10vh;
 }
-
 .side-bar__log-out {
   width: 100%;
   height: 75px;
@@ -205,22 +132,37 @@ table {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   position: absolute;
   bottom: 6vh;
   z-index: 1;
 }
-
 .side-bar__log-out:hover {
   background-color: #2A3D45;
 }
-
 .side-bar_click {
   background-color: #2A3D45;
+}
+
+.buttonAdd {
+  width: 90%;
+  margin-bottom: 5vh;
+}
+.buttonAdd__user {
+  padding: 1vh 1vw;
+  width: 150px;
+  height: 50px;
+  background-color: #88A0A8;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 2vh;
+  font-family: RailwayR, "Courier New", Courier, monospace;
+  color: #ECECEC;
 }
 
 .main-page {
@@ -234,30 +176,27 @@ table {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
-
 .main-page h2 {
   margin-top: 5vh;
   margin-left: 5vw;
   -ms-flex-item-align: start;
-  align-self: flex-start;
+      align-self: flex-start;
   margin-bottom: 5vh;
 }
 
 .table {
   display: contents;
 }
-
 .table__header {
   width: 90%;
   background-color: #88A0A8;
 }
-
 .table__content {
   width: 90%;
   max-height: 70vh;
@@ -279,7 +218,6 @@ th {
   color: #ECECEC;
   text-transform: uppercase;
 }
-
 th:last-child {
   text-align: right;
   padding-right: 6vw;
@@ -294,7 +232,6 @@ td {
   color: #000000;
   border-bottom: solid 1px lightgray;
 }
-
 td button {
   padding: 1vh 1vw;
   background-color: #88A0A8;
@@ -305,10 +242,94 @@ td button {
   font-family: RailwayR, "Courier New", Courier, monospace;
   color: #ECECEC;
 }
-
 td:nth-child(2n) {
   text-align: right;
   padding-right: 5vw;
 }
 
-/*# sourceMappingURL=index.css.map */
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.modal__container {
+  width: 500px;
+  height: 500px;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 25px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.modal__button {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  width: 30px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.formUserAdder {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  row-gap: 10px;
+  font-size: 16px;
+}
+.formUserAdder label {
+  justify-self: start;
+}
+.formUserAdder button {
+  grid-column: 1/3;
+  grid-row: 8/9;
+  padding: 1vh 1vw;
+  width: 150px;
+  background-color: #88A0A8;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 2vh;
+  font-family: RailwayR, "Courier New", Courier, monospace;
+  color: #ECECEC;
+  justify-self: center;
+}
+.formUserAdder input {
+  width: auto;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ECECEC;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.formUserAdder select {
+  width: auto;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ECECEC;
+  padding-left: 10px;
+  padding-right: 10px;
+}/*# sourceMappingURL=index.css.map */

@@ -1,5 +1,6 @@
 import { AddResource } from "@/fetchers/ResourceController";
 import { useState } from "react";
+import Modal from "../modal/Modal";
 
 function ResourceAdderForm() {
     const handleSubmit = async (e) => {
@@ -20,16 +21,16 @@ function ResourceAdderForm() {
         }
     }
     return (
-        <form onSubmit={handleSubmit} style={{ position: "absolute, top: 50%, left: 50%" }} >
+        <form className="formUserAdder" onSubmit={handleSubmit} style={{ position: "absolute, top: 50%, left: 50%" }} >
             <label htmlFor="name">Name</label>
             <input type="text" id="name" name="name" required />
-            <br />
+
             <label htmlFor="serialNumber">Serial Number</label>
             <input type="text" id="serialNumber" name="serialNumber" required />
-            <br />
+
             <label htmlFor="resourceTypeId">Resource Type ID</label>
             <input type="number" id="resourceTypeId" name="resourceTypeId" required />
-            <br />
+
             <button type="submit">Submit</button>
         </form>
     )
@@ -43,9 +44,10 @@ export default function ResourceAdder() {
     }
 
     return (
-        <div>
-            <button onClick={handleButtonClick}>{showForm ? "Закрити" : "Додати"}</button>
-            {showForm && <ResourceAdderForm />}
+        <div className="buttonAdd">
+            <button className="buttonAdd__user" onClick={handleButtonClick}>{showForm ? "Закрити" : "Додати"}</button>
+            {showForm && <Modal funcName = {ResourceAdderForm}
+                                closeModal = {setShowForm}/>}
         </div>
     )
 }

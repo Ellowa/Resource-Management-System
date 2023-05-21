@@ -1,0 +1,17 @@
+.buttonAdd{
+    width: 90%;
+    margin-bottom: 5vh;
+
+    &__user{
+        padding: 1vh 1vw;
+        width: 150px;
+        height: 50px;
+        background-color: $color-one;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 2vh;
+        font-family: RailwayR, $font-families;
+        color: $color-three;
+    }
+}
