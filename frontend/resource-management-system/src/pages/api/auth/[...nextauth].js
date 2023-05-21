@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 const jwt = require('jsonwebtoken');
 
 async function refreshAccesToken(tokenObject) {
+    // console.log("Token expired");
     try {
         const tokenResponse = await axios.post("https://resource-ms-backend.azurewebsites.net/api/auth/refresh", {
             token: tokenObject.refreshToken,
@@ -58,7 +59,9 @@ const callbacks = {
 
         // console.log(token);
 
-        const shouldRefreshTime = Math.round((token.accessTokenExpiry - 60 * 60 * 1000) - Date.now())
+        const shouldRefreshTime = Math.round(token.accessTokenExpiry - Date.now() / 1000);
+
+        // console.log(shouldRefreshTime);
 
         if (shouldRefreshTime > 0) {
             return Promise.resolve(token);
