@@ -1,11 +1,14 @@
 ﻿using BysinessServices.Interfaces;
 using BysinessServices.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ResourceManagementSystemAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+    [Authorize(Roles = $"{UserRoles.Admin}")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -24,6 +27,7 @@ namespace ResourceManagementSystemAPI.Controllers
         /// </summary>
         /// <returns>list of users without login and password</returns>
         [HttpGet]
+        [Authorize]
         public async Task<IEnumerable<UserProtectedModel>> Get()
         {
             return await _userService.GetAllUserWithoutProtectedInfo();

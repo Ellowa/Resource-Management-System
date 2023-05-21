@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ResourceManagementSystemAPI.Controllers
 {
@@ -23,7 +24,7 @@ namespace ResourceManagementSystemAPI.Controllers
 
         }
 
-        [HttpPost("login")]
+        [HttpPost("login"), AllowAnonymous]
         [ProducesResponseType(typeof(JwtPairModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -39,7 +40,7 @@ namespace ResourceManagementSystemAPI.Controllers
                 JwtPairModel jwtPair = new JwtPairModel()
                 {
                     AccessToken = _authService.GenerateJwtAccessToken(user, TimeSpan.FromMinutes(15)),
-                    RefreshToken = _authService.GenerateJwtRefreshToken(user)
+                    RefreshToken = _authService.GenerateJwtRefreshToken(user, TimeSpan.FromDays(30))
                 };
 
                 await _authService.AddRefreshTokenToUserByIdAsync(user.Id ?? -1, jwtPair.RefreshToken);
