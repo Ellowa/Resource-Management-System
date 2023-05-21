@@ -1,29 +1,12 @@
+import { getSession } from "next-auth/react";
 import { useState } from "react";
 import { RequestPage } from "../components/request-page/RequestPage";
 import { ResourcePage } from "../components/resource-page/ResourcePage";
 import { SideBar } from "../components/side-bar/SideBar";
 import { UserPage } from "../components/user-page/UserPage";
-import { withSessionSsr } from "../lib/config/withSession";
+const jwt = require('jsonwebtoken');
 
-export const getServerSideProps = withSessionSsr(
-  async ({ req }) => {
-    const user = req.session.user;
-
-    if (!user) {
-      return {
-        redirect: {
-          destination: "/login",
-        }
-      }
-    }
-
-    return {
-      props: { user }
-    }
-  }
-)
-
-export default function Home(user) {
+export default function Home() {
   const [page, setPage] = useState(2);
 
   const renderSwitch = () => {
@@ -34,10 +17,22 @@ export default function Home(user) {
     }
   }
 
+  const userDataReciever = async () => {
+    const sess = await getSession();
+    const payload = jwt.decode(sess.accessToken);
+    console.log(payload);
+    const userData = {
+      name: payload.name,
+      role: payload.role,
+    }
+    console.log(userData);
+  }
+
   return (
     <div className="page">
-      <SideBar setPage={setPage} user={user} />
+      <SideBar setPage={setPage} />
       {renderSwitch(page)}
+      <button onClick={userDataReciever}>Получить данные пользователя</button>
     </div>
   )
 }

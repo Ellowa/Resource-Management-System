@@ -1,11 +1,18 @@
-import axios from 'axios'
-import useSWR, { mutate } from 'swr'
+import axios from 'axios';
+import { getSession } from 'next-auth/react';
+import useSWR, { mutate } from 'swr';
 
-const client = axios.create({
-    headers: {
-        // 'Authorisation': 'Bearer ' + localStorage.getItem('token'),
-        'Content-Type': 'application/json',
-    },
+const client = axios.create();
+
+const getToken = async () => {
+    const session = await getSession();
+    return session?.accessToken;
+}
+
+client.interceptors.request.use(async (config) => {
+    config.headers["Content-Type"] = 'application/json';
+    config.headers["Authorization"] = `Bearer ${await getToken()}`;
+    return config;
 })
 
 const fetcher = (...args) => client.get(...args).then((res) => res.data)

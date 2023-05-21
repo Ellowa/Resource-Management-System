@@ -1,11 +1,9 @@
-import axios from 'axios';
-import Router from 'next/router';
+import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 
 
 async function logout() {
-    await axios.post('/api/logout')
-    Router.reload()
+    signOut();
 }
 
 export function SideBar(props) {
@@ -16,7 +14,7 @@ export function SideBar(props) {
     return (
         <div className="side-bar">
             <div className="side-bar__img"></div>
-            <p className="side-bar__user-name">Hi, {props.user.user.username}</p>
+            <p className="side-bar__user-name">Hi, {/*props.user.user.username*/}</p>
 
             {/* <div>
                 <button></button>

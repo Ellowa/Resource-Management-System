@@ -2,12 +2,17 @@
 const nextConfig = {
   reactStrictMode: true,
   async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'https://resource-ms-backend.azurewebsites.net/api/:path*',
-      }
-    ]
+    return {
+      fallback: [
+        {
+          source: '/api/:path*',
+          destination: 'https://resource-ms-backend.azurewebsites.net/api/:path*',
+        }
+      ]
+    }
+  },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production'
   },
 }
 

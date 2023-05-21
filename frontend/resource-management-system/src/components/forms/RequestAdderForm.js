@@ -9,7 +9,7 @@ function RequestAdderForm() {
         const data = {
             start: e.target.start.value,
             end: e.target.end.value,
-            purpose: e.target.purpose.value,
+            purpose: e.target.purpose?.value || "",
             resourceId: e.target.resourceId.value,
             userId: e.target.userId.value
         }
@@ -32,7 +32,7 @@ function RequestAdderForm() {
             <input type="datetime-local" id="end" name="end" required />
 
             <label htmlFor="purpose">Purpose</label>
-            <input type="text" id="purpose" name="purpose" required />
+            <input type="text" id="purpose" name="purpose" />
 
             <label htmlFor="resourceId">Resource ID</label>
             <input type="number" id="resourceId" name="resourceId" required />
@@ -55,8 +55,8 @@ export default function RequestAdder() {
     return (
         <div className="buttonAdd">
             <button className="buttonAdd__user" onClick={handleButtonClick}>{showForm ? "Закрити" : "Додати"}</button>
-            {showForm && <Modal funcName = {RequestAdderForm}
-                                closeModal = {setShowForm}/>}
+            {showForm && <Modal funcName={RequestAdderForm}
+                closeModal={setShowForm} />}
         </div>
     )
 }

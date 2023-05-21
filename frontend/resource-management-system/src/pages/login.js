@@ -1,49 +1,29 @@
-import { useRouter } from "next/router";
-import { useRef } from "react";
+import { signIn, signOut } from "next-auth/react";
 
 export default function Login() {
-    const router = useRouter();
-    const emailInput = useRef();
-    const passwordInput = useRef();
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const email = emailInput.current.value;
-        const password = passwordInput.current.value;
+        const login = e.target.login.value;
+        const password = e.target.password.value;
 
-        const response = await fetch("/api/sessions", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                email, password
-            })
-        })
-
-        if (response.ok) {
-            router.push("/");
-        }
+        signIn('credentials', { login: login, password: password })
     };
 
     return (
         <>
-            <div>Temp login data: login: test@gmail.com, password: password</div>
-            <br />
+            Temp Login: test_admin
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        Email: <input type="text" ref={emailInput} />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Password: <input type="password" ref={passwordInput} />
-                    </label>
-                </div>
-                <div>
-                    <button type="submit">Sign in</button>
-                </div>
+                <label htmlFor="login">Login</label>
+                <input type="text" id="login" name="login" required />
+                <br />
+                <label htmlFor="password">Password</label>
+                <input type="password" id="password" name="password" required />
+                <br />
+                <button type="submit">Sign In</button>
             </form>
+            <br />
+            <button onClick={() => signOut()}>Sign Out</button>
         </>
     );
 }
