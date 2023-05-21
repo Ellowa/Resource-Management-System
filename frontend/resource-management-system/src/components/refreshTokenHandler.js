@@ -6,7 +6,7 @@ const RefreshTokenHandler = (props) => {
 
     useEffect(() => {
         if (!!session) {
-            const timeRemaining = Math.round((((session.accesTokenExpiry - 30 * 60 * 1000) - Date.now()) / 1000));
+            const timeRemaining = Math.round((session.accessTokenExpiry - Date.now() / 1000) - 60);
             props.setInterval(timeRemaining > 0 ? timeRemaining : 0);
         }
     }, [session]);
