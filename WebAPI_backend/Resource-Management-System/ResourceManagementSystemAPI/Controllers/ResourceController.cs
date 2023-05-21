@@ -5,6 +5,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using FluentValidation.Internal;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,7 @@ namespace ResourceManagementSystemAPI.Controllers
 
         // GET: api/resource
         [HttpGet]
+        [Authorize(Roles = $"{UserRoles.Manager}, {UserRoles.User}")]
         public async Task<IEnumerable<ResourceModel>> Get()
         {
             return await _resourceService.GetAllAsync(r => r.ResourceType);
@@ -37,6 +39,7 @@ namespace ResourceManagementSystemAPI.Controllers
 
         // GET: api/resource/details
         [HttpGet("details")]
+        [Authorize(Roles = $"{UserRoles.Manager}, {UserRoles.User}")]
         public async Task<IEnumerable<ResourceModel>> GetWithDetails()
         {
             return await _resourceService.GetAllAsync(r => r.ResourceType, r => r.Schedules, r => r.Requests);
@@ -44,6 +47,7 @@ namespace ResourceManagementSystemAPI.Controllers
 
         //GET: api/resource/user/5
         [HttpGet("user/{id}")]
+        [Authorize(Roles = $"{UserRoles.Manager}, {UserRoles.User}")]
         public async Task<IEnumerable<ScheduleModel>> GetScheduleByUserId(int id)
         {
             return await _resourceService.GetScheduleByUserId(id);
@@ -51,6 +55,7 @@ namespace ResourceManagementSystemAPI.Controllers
 
         //GET: api/resource/schedule/5
         [HttpGet("schedule/{id}")]
+        [Authorize(Roles = $"{UserRoles.Manager},{UserRoles.User}")]
         public async Task<IEnumerable<ScheduleModel>> GetScheduleByResourceId(int id)
         {
             return await _resourceService.GetScheduleByResourceId(id);
@@ -60,6 +65,7 @@ namespace ResourceManagementSystemAPI.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ResourceModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Manager}, {UserRoles.User}")]
         public async Task<IActionResult> GetById(int id)
         {
             var resource = await _resourceService.GetByIdAsync(id, res => res.ResourceType);
@@ -69,6 +75,7 @@ namespace ResourceManagementSystemAPI.Controllers
         // POST: api/resource
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [Authorize(Roles = $"{UserRoles.Manager}")]
         public async Task<IActionResult> Create(ResourceModel resource)
         {
             var validationResult = await _resourceValidator.ValidateAsync(resource);
@@ -88,6 +95,7 @@ namespace ResourceManagementSystemAPI.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = $"{UserRoles.Manager}")]
         public async Task<IActionResult> Update(int id, ResourceModel resource)
         {
             var validationResult = await _resourceValidator.ValidateAsync(resource);
@@ -109,6 +117,7 @@ namespace ResourceManagementSystemAPI.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Manager}")]
         public async Task<IActionResult> Delete(int id)
         {
             var resourceToDelete = await _resourceService.GetByIdAsync(id, res => res.ResourceType);
@@ -122,6 +131,7 @@ namespace ResourceManagementSystemAPI.Controllers
 
         // GET: api/resource/type
         [HttpGet("type")]
+        [Authorize(Roles = $"{UserRoles.Manager}, {UserRoles.User}")]
         public async Task<IEnumerable<ResourceTypeModel>> GetResourceType()
         {
             return await _resourceService.GetAllResourceTypesAsync();
@@ -129,6 +139,7 @@ namespace ResourceManagementSystemAPI.Controllers
 
         // GET: api/resource/type/details
         [HttpGet("type/details")]
+        [Authorize(Roles = $"{UserRoles.Manager}, {UserRoles.User}")]
         public async Task<IEnumerable<ResourceTypeModel>> GetResourceTypeWithDetails()
         {
             return await _resourceService.GetAllResourceTypesAsync(rt => rt.Resources);
@@ -137,6 +148,7 @@ namespace ResourceManagementSystemAPI.Controllers
         // POST: api/resource/type
         [HttpPost("type")]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [Authorize(Roles = $"{UserRoles.Manager}")]
         public async Task<IActionResult> CreateResourceType(ResourceTypeModel resourceType)
         {
             var validationResult = await _resourceTypeValidator.ValidateAsync(resourceType);
@@ -156,6 +168,7 @@ namespace ResourceManagementSystemAPI.Controllers
         [HttpPut("type/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = $"{UserRoles.Manager}")]
         public async Task<IActionResult> UpdateResourceType(int id, ResourceTypeModel resourceType)
         {
             var validationResult = await _resourceTypeValidator.ValidateAsync(resourceType);
@@ -177,6 +190,7 @@ namespace ResourceManagementSystemAPI.Controllers
         [HttpDelete("type/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Manager}")]
         public async Task<IActionResult> DeleteResourceType(int id)
         {
             var resourceTypesToDelete = await _resourceService.GetAllResourceTypesAsync();

@@ -4,6 +4,7 @@ using BysinessServices.ModelsValidation;
 using DataAccess.Entities;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,7 @@ namespace ResourceManagementSystemAPI.Controllers
 
         // GET: api/request
         [HttpGet]
+        [Authorize(Roles = $"{UserRoles.Manager}")]
         public async Task<IEnumerable<RequestModel>> Get()
         {
             return await _requestService.GetAllAsync(req => req.Resource);
@@ -33,6 +35,7 @@ namespace ResourceManagementSystemAPI.Controllers
         [HttpGet("user/{id}")]
         [ProducesResponseType(typeof(RequestModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.User}")]
         public async Task<IEnumerable<RequestModel>> GetRequestByUserId(int id)
         {
             return await _requestService.GetByUserId(id);
@@ -42,6 +45,7 @@ namespace ResourceManagementSystemAPI.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(RequestModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Manager}, {UserRoles.User}")]
         public async Task<IActionResult> GetById(int id)
         {
             var request = await _requestService.GetByIdAsync(id, req => req.Resource);
@@ -51,6 +55,7 @@ namespace ResourceManagementSystemAPI.Controllers
         // POST: api/request
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [Authorize(Roles = $"{UserRoles.User}")]
         public async Task<IActionResult> Create(RequestModel request)
         {
             var validationResult = await _requestValidator.ValidateAsync(request);
@@ -70,6 +75,7 @@ namespace ResourceManagementSystemAPI.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.User}")]
         public async Task<IActionResult> Delete(int id)
         {
             var requestToDelete = await _requestService.GetByIdAsync(id);
@@ -84,6 +90,7 @@ namespace ResourceManagementSystemAPI.Controllers
         [HttpDelete("deny/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Manager}")]
         public async Task<IActionResult> Deny(int id)
         {
             var requestToDelete = await _requestService.GetByIdAsync(id);
@@ -98,6 +105,7 @@ namespace ResourceManagementSystemAPI.Controllers
         [HttpPut("confirm/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Manager}")]
         public async Task<IActionResult> Confirm(int id)
         {
             var request = await _requestService.GetByIdAsync(id);
