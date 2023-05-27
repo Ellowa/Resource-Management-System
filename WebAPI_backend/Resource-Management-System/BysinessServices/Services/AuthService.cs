@@ -36,6 +36,7 @@ namespace BysinessServices.Services
             var user = await _userRepository.GetByIdAsync(userId, u => u.Role);
             user.JwtRefreshToken = refreshToken;
             _userRepository.Update(user);
+            await _unitOfWork.SaveAsync();
         }
 
         public async Task<bool> VerifyPasswordHash(int userId, string password)
@@ -48,21 +49,21 @@ namespace BysinessServices.Services
             }
         }
 
-        public string GenerateJwtAccessToken(UserWithAuthInfoModel user, TimeSpan expiretionTime)
+        public string GenerateJwtAccessToken(UserWithAuthInfoModel user, TimeSpan expiresIn)
         {
             //"JwtSettings:AccessTokenKey"
-            return GenerateJwtToken(user, expiretionTime, System.Text.Encoding.UTF8.GetBytes(
+            return GenerateJwtToken(user, expiresIn, System.Text.Encoding.UTF8.GetBytes(
                 _config.GetSection("JwtSettings:AccessTokenKey").Value));
         }
 
-        public string GenerateJwtRefreshToken(UserWithAuthInfoModel user, TimeSpan expiretionTime)
+        public string GenerateJwtRefreshToken(UserWithAuthInfoModel user, TimeSpan expiresIn)
         {
             //"JwtSettings:RefreshTokenKey"
-            return GenerateJwtToken(user, expiretionTime, System.Text.Encoding.UTF8.GetBytes(
+            return GenerateJwtToken(user, expiresIn, System.Text.Encoding.UTF8.GetBytes(
                 _config.GetSection("JwtSettings:RefreshTokenKey").Value));
         }
 
-        private string GenerateJwtToken(UserWithAuthInfoModel user, TimeSpan expiretionTime, byte[] securityKey) 
+        private string GenerateJwtToken(UserWithAuthInfoModel user, TimeSpan expiresIn, byte[] securityKey) 
         {
             List<Claim> claims = new List<Claim>()
             {
@@ -77,9 +78,42 @@ namespace BysinessServices.Services
 
             var token = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.UtcNow + expiretionTime,
+                expires: DateTime.UtcNow + expiresIn,
                 signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public async Task<bool> VerifyRefreshToken(string refreshToken) 
+        {
+            JwtSecurityTokenHandler jwtHandler = new JwtSecurityTokenHandler();
+            //Check if token can be read by handler
+            if (!jwtHandler.CanReadToken(refreshToken)) { return false; }
+            var token = jwtHandler.ReadJwtToken(refreshToken);
+
+            //Check if token is signed correctly.
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+                _config.GetSection("JwtSettings:RefreshTokenKey").Value));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+
+            //Make new JWT to compare
+            var compareToken = jwtHandler.WriteToken(new JwtSecurityToken(
+                claims: token.Claims,
+                expires: token.ValidTo,
+                signingCredentials: credentials));
+
+            if (refreshToken != compareToken) { return false; }
+
+            //Check if token is not expired
+            if (token.ValidTo < DateTime.UtcNow) { return false; }
+
+            //Check if token in DB
+            //Get user
+            var user = await _userRepository.GetByIdAsync(Convert.ToInt32(token.Claims.First(c => c.Type == "nameidentifier").Value));
+            if (user.JwtRefreshToken != refreshToken) { return false; }
+
+            //The refreshtoken is correct
+            return true;
+
         }
 
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] salt)

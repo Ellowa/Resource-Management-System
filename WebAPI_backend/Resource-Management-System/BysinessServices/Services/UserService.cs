@@ -98,7 +98,7 @@ namespace BysinessServices.Services
                 Login = unsafeUser.Login,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
-                JwtRefreshToken = ""
+                JwtRefreshToken = "aaa"
             };
         }
 

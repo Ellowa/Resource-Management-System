@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using static Org.BouncyCastle.Math.EC.ECCurve;
+using DataAccess.Entities;
 
 namespace ResourceManagementSystemAPI.Controllers
 {
@@ -53,15 +55,29 @@ namespace ResourceManagementSystemAPI.Controllers
             }
         }
 
-        /*
         [HttpPost("refresh")]
         [ProducesResponseType(typeof(JwtPairModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Refresh(string refreshToken) 
+        public async Task<ActionResult<string>> Refresh(string refreshToken) 
         {
+            //Check if refresh token is valid
+            if (!await _authService.VerifyRefreshToken(refreshToken)) { return BadRequest("Refresh token is not valid."); }
 
+            //Get user from token 
+            var token = new JwtSecurityTokenHandler().ReadJwtToken(refreshToken);
+            var user = await _userService.GetByIdAsync(Convert.ToInt32(token.Claims.First(c => c.Type == "nameidentifier").Value), u => u.Role);
+
+            //Generate pair of tokens
+            JwtPairModel jwtPair = new JwtPairModel()
+            {
+                AccessToken = _authService.GenerateJwtAccessToken(user, TimeSpan.FromMinutes(15)),
+                RefreshToken = _authService.GenerateJwtRefreshToken(user, TimeSpan.FromDays(30))
+            };
+
+            await _authService.AddRefreshTokenToUserByIdAsync(user.Id ?? -1, jwtPair.RefreshToken);
+            //return pair
+            return Ok(jwtPair);
         }
-        */
     }
 }

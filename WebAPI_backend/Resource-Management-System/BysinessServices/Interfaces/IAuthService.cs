@@ -55,5 +55,7 @@ namespace BysinessServices.Interfaces
         /// <param name="user">user</param>
         /// <returns>JWT refresh token</returns>
         string GenerateJwtRefreshToken(UserWithAuthInfoModel user, TimeSpan expiretionTime);
+
+        Task<bool> VerifyRefreshToken(string refreshToken);
     }
 }
