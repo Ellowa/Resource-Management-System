@@ -55,17 +55,17 @@ namespace ResourceManagementSystemAPI.Controllers
             }
         }
 
-        [HttpPost("refresh")]
+        [HttpPost("refresh"), AllowAnonymous]
         [ProducesResponseType(typeof(JwtPairModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<string>> Refresh(string refreshToken) 
+        public async Task<ActionResult<JwtPairModel>> Refresh(JwtRefreshModel refreshToken) 
         {
             //Check if refresh token is valid
-            if (!await _authService.VerifyRefreshToken(refreshToken)) { return BadRequest("Refresh token is not valid."); }
+            if (!await _authService.VerifyRefreshToken(refreshToken.RefreshToken)) { return BadRequest("Refresh token is not valid."); }
 
             //Get user from token 
-            var token = new JwtSecurityTokenHandler().ReadJwtToken(refreshToken);
+            var token = new JwtSecurityTokenHandler().ReadJwtToken(refreshToken.RefreshToken);
             var user = await _userService.GetByIdAsync(Convert.ToInt32(token.Claims.First(c => c.Type == "nameidentifier").Value), u => u.Role);
 
             //Generate pair of tokens
