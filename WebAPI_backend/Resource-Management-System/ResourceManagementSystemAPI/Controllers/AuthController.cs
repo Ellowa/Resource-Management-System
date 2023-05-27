@@ -38,7 +38,7 @@ namespace ResourceManagementSystemAPI.Controllers
             //BUT compiller still requres to convert int? to int somehow.
             if (await _authService.VerifyPasswordHash(id ?? -1, loginInfo.Password))
             {
-                var user = await _userService.GetByIdAsync(id ?? -1);
+                var user = await _userService.GetByIdAsync(id ?? -1, u => u.Role);
                 JwtPairModel jwtPair = new JwtPairModel()
                 {
                     AccessToken = _authService.GenerateJwtAccessToken(user, TimeSpan.FromMinutes(15)),
