@@ -120,7 +120,6 @@ function IsAuthenticated() {
 
     const sessionReciever = async () => {
         const sess = await getSession();
-        console.log(sess);
     }
 
     if (!isAuthenticated) {
