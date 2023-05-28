@@ -14,6 +14,7 @@ function TableData() {
                     <tr key={resource.id}>
                         <td>{resource.id}</td>
                         <td>{resource.name}</td>
+                        <td>{resource.serialNumber}</td>
                         <td>{resource.resourceTypeName}</td>
                         <td><ResourceChanger data={resource} /></td>
                         <td><button onClick={() => DeleteResource(resource.id)}>Видалити</button></td>
@@ -32,11 +33,12 @@ export function ResourcePage() {
             <ResourceAdder />
             <div className="table">
                 <div className="table__header">
-                    <table cellPadding="0" cellSpacing="0" border="0">
+                    <table cellPadding="0" cellSpacing="0" border="0"  >
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Назва ресурсу</th>
+                                <th>Серійний номер</th>
                                 <th>Тип ресурсу</th>
                                 <th></th>
                                 <th>Дія</th>

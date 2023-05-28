@@ -4,7 +4,6 @@ import { ResourcePage } from "../components/resource-page/ResourcePage";
 import { SideBar } from "../components/side-bar/SideBar";
 import useAuth from "../components/useAuth";
 import { UserPage } from "../components/user-page/UserPage";
-const jwt = require('jsonwebtoken');
 
 export default function Home() {
   const isAuthenticated = useAuth(true);

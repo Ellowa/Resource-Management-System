@@ -41,7 +41,7 @@ export function UserPage() {
                                 <th>Прізвище Користувача</th>
                                 <th>Роль</th>
                                 <th />
-                                <th />
+                                <th>Дія</th>
                             </tr>
                         </thead>
                     </table>

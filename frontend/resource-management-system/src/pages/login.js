@@ -25,6 +25,7 @@ export default function Login() {
                 <button type="submit">Sign In</button>
             </form>
             <br />
+            {/* Temporary button, remove in final version */}
             <button onClick={() => signOut()}>Sign Out</button>
         </>
     );
