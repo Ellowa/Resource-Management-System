@@ -1,6 +1,7 @@
 import { AddResource } from "@/fetchers/ResourceController";
 import { useState } from "react";
 import Modal from "../modal/Modal";
+import ResourceTypeReciever from "./recievers/ResourceTypeReciever";
 
 function ResourceAdderForm() {
     const handleSubmit = async (e) => {
@@ -28,8 +29,9 @@ function ResourceAdderForm() {
             <label htmlFor="serialNumber">Serial Number</label>
             <input type="text" id="serialNumber" name="serialNumber" required />
 
-            <label htmlFor="resourceTypeId">Resource Type ID</label>
-            <input type="number" id="resourceTypeId" name="resourceTypeId" required />
+            <label htmlFor="resourceTypeId">Resource Type</label>
+            {/* <input type="number" id="resourceTypeId" name="resourceTypeId" required /> */}
+            <ResourceTypeReciever />
 
             <button type="submit">Submit</button>
         </form>
@@ -46,8 +48,8 @@ export default function ResourceAdder() {
     return (
         <div className="buttonAdd">
             <button className="buttonAdd__user" onClick={handleButtonClick}>{showForm ? "Закрити" : "Додати"}</button>
-            {showForm && <Modal funcName = {ResourceAdderForm}
-                                closeModal = {setShowForm}/>}
+            {showForm && <Modal funcName={ResourceAdderForm}
+                closeModal={setShowForm} />}
         </div>
     )
 }

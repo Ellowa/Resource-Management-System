@@ -1,6 +1,7 @@
 import { ChangeResourceByID } from "@/fetchers/ResourceController";
 import { useState } from "react";
 import Modal from "../modal/Modal";
+import ResourceTypeReciever from "./recievers/ResourceTypeReciever";
 
 function ResourceChangerForm(resource) {
 
@@ -31,7 +32,7 @@ function ResourceChangerForm(resource) {
             <label htmlFor="serialNumber">Serial Number</label>
             <input type="text" id="serialNumber" name="serialNumber" defaultValue={resource.serialNumber} required />
             <label htmlFor="resourceTypeId">Resource Type ID</label>
-            <input type="number" id="resourceTypeId" name="resourceTypeId" defaultValue={resource.resourceTypeId} required />
+            <ResourceTypeReciever defaultValue={resource.resourceTypeId} />
             <button type="submit">Submit</button>
         </form>
     )
@@ -49,9 +50,9 @@ export default function ResourceChanger(data) {
     return (
         <div>
             <button onClick={handleButtonClick}>{showForm ? "Закрити" : "Змінити"}</button>
-            {showForm && <Modal funcName = {ResourceChangerForm}
-                                closeModal = {setShowForm}
-                                user={data.data}/>}
+            {showForm && <Modal funcName={ResourceChangerForm}
+                closeModal={setShowForm}
+                user={data.data} />}
         </div>
     )
 }

@@ -12,7 +12,9 @@ function TableData() {
             {
                 resources.map((resource) => (
                     <tr key={resource.id}>
+                        <td>{resource.id}</td>
                         <td>{resource.name}</td>
+                        <td>{resource.resourceTypeName}</td>
                         <td><ResourceChanger data={resource} /></td>
                         <td><button onClick={() => DeleteResource(resource.id)}>Видалити</button></td>
                     </tr>
@@ -33,7 +35,10 @@ export function ResourcePage() {
                     <table cellPadding="0" cellSpacing="0" border="0">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Назва ресурсу</th>
+                                <th>Тип ресурсу</th>
+                                <th></th>
                                 <th>Дія</th>
                             </tr>
                         </thead>
