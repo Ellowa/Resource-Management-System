@@ -29,26 +29,26 @@ export function UserAdderForm() {
         <form className="formUserAdder" onSubmit={handleSubmit} >
             <label htmlFor="firstName">First Name</label>
             <input type="text" id="firstName" name="firstName" required />
-            
+
             <label htmlFor="secondName">Second Name</label>
             <input type="text" id="secondName" name="secondName" required />
-            
+
             <label htmlFor="lastName">Last Name</label>
             <input type="text" id="lastName" name="lastName" required />
-            
+
             <label htmlFor="login">Login</label>
             <input type="text" id="login" name="login" required />
-            
+
             <label htmlFor="roleId">Role ID</label>
             <select id="roleId" name="roleId" required >
                 <option value="10">User</option>
                 <option value="12">Manager</option>
                 <option value="13">Admin</option>
             </select>
-           
+
             <label htmlFor="password">Password</label>
             <input type="password" id="password" name="password" required />
-            
+
             <button type="submit">Submit</button>
         </form>
     )
@@ -64,8 +64,8 @@ export default function UserAdder() {
     return (
         <div className="buttonAdd">
             <button className="buttonAdd__user" onClick={handleButtonClick}>{showForm ? "Закрити" : "Додати"}</button>
-            {showForm && <Modal funcName = {UserAdderForm}
-                                closeModal = {setShowForm}/>}
+            {showForm && <Modal funcName={UserAdderForm}
+                closeModal={setShowForm} />}
         </div>
     )
 }
