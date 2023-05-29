@@ -60,7 +60,7 @@ namespace DataAccess.Repositories
             {
                 query = query.Include(include);
             }
-            return await query.FirstAsync(e => e.Id == id);
+            return await query.FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public void Update(TEntity entity)
