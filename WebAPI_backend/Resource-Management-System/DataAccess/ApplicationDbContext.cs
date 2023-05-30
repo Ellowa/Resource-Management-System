@@ -15,6 +15,8 @@ namespace DataAccess
 
         }
 
+        public ApplicationDbContext() { }
+
         public DbSet<AdditionalRole> AdditionalRoles { get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<Resource> Resources { get; set; }
