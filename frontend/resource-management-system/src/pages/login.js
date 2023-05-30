@@ -1,6 +1,8 @@
 import { signIn, signOut } from "next-auth/react";
+import useAuth from "../components/useAuth";
 
 export default function Login() {
+    const isAuthenticated = useAuth(true);
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -12,7 +14,7 @@ export default function Login() {
 
     return (
         <>
-            Temp Login: test_admin
+            Temp Login: test_admin, test_manager, test_user
             <form onSubmit={handleSubmit}>
                 <label htmlFor="login">Login</label>
                 <input type="text" id="login" name="login" required />
@@ -23,6 +25,7 @@ export default function Login() {
                 <button type="submit">Sign In</button>
             </form>
             <br />
+            {/* Temporary button, remove in final version */}
             <button onClick={() => signOut()}>Sign Out</button>
         </>
     );

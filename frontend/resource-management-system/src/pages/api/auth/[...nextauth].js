@@ -4,10 +4,9 @@ import CredentialsProvider from "next-auth/providers/credentials";
 const jwt = require('jsonwebtoken');
 
 async function refreshAccesToken(tokenObject) {
-    // console.log("Token expired");
     try {
-        const tokenResponse = await axios.post("https://resource-ms-backend.azurewebsites.net/api/auth/refresh", {
-            token: tokenObject.refreshToken,
+        const tokenResponse = await axios.post("https://resource-ms-backend.azurewebsites.net/api/user/refresh", {
+            refreshToken: tokenObject.refreshToken,
         });
 
         const decodedToken = jwt.decode(tokenResponse.data.accessToken);
@@ -21,7 +20,7 @@ async function refreshAccesToken(tokenObject) {
     } catch (error) {
         return {
             ...tokenObject,
-            // error: "RefreshAccessTokenError", //Вернуть когда сделают рефреш
+            error: "RefreshAccessTokenError",
         }
     }
 }
@@ -57,18 +56,27 @@ const callbacks = {
             token.refreshToken = user.refreshToken;
         }
 
-        // console.log(token);
+        var shouldRefreshTime = Math.round(((token.accessTokenExpiry - Date.now() / 1000) / 60));
 
-        const shouldRefreshTime = Math.round(token.accessTokenExpiry - Date.now() / 1000);
-
-        // console.log(shouldRefreshTime);
+        // console.log("1 " + shouldRefreshTime);
 
         if (shouldRefreshTime > 0) {
             return Promise.resolve(token);
         }
+        // console.log("Token before: " + token.accessToken);
+        token = await refreshAccesToken(token);
+        // console.log("Token after: " + token.accessToken);
 
-        token = refreshAccesToken(token);
-        return Promise.resolve(token);
+        shouldRefreshTime = Math.round(((token.accessTokenExpiry - Date.now() / 1000) / 60));
+
+        // console.log("2 " + shouldRefreshTime);
+
+        if (shouldRefreshTime > 0) {
+            return Promise.resolve(token);
+        } else {
+            // console.log("Something went wrong");
+            return Promise.reject(token);
+        }
     },
     session: async ({ session, token }) => {
         session.accessToken = token.accessToken;

@@ -12,7 +12,10 @@ function TableData() {
             {
                 users.map((user) => (
                     <tr key={user.id}>
+                        <td>{user.id}</td>
+                        <td>{user.login}</td>
                         <td>{user.lastName}</td>
+                        <td>{user.roleName}</td>
                         <td><UserChanger data={user} /></td>
                         <td><button onClick={() => DeleteUser(user.id)}>Видалити</button></td>
                     </tr>
@@ -33,7 +36,11 @@ export function UserPage() {
                     <table cellPadding="0" cellSpacing="0" border="0">
                         <thead>
                             <tr>
-                                <th>Ім&apos;я Користувача</th>
+                                <th>ID</th>
+                                <th>Логін</th>
+                                <th>Прізвище Користувача</th>
+                                <th>Роль</th>
+                                <th />
                                 <th>Дія</th>
                             </tr>
                         </thead>
