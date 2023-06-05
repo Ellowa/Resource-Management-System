@@ -7,6 +7,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ResourceManagementSystemAPI.Controllers
 {
@@ -66,6 +67,9 @@ namespace ResourceManagementSystemAPI.Controllers
                 return ValidationProblem(validationResult.Errors.ToString());
             }
 
+            string? userId = User.Claims.First(c => c.Type == "nameidentifier")?.Value;
+            if (request.UserId.ToString() != userId) return Forbid();
+
             var createdRequest = await _requestService.AddAsync(request);
 
             return CreatedAtAction(nameof(GetById), new { id = createdRequest.Id }, createdRequest);
@@ -80,6 +84,9 @@ namespace ResourceManagementSystemAPI.Controllers
         {
             var requestToDelete = await _requestService.GetByIdAsync(id);
             if (requestToDelete == null) return NotFound();
+
+            string? userId = User.Claims.First(c => c.Type == "nameidentifier")?.Value;
+            if (requestToDelete.UserId.ToString() != userId) return Forbid();
 
             await _requestService.DeleteAsync(id);
 
@@ -101,7 +108,7 @@ namespace ResourceManagementSystemAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/request/confirm/5
+        // PUT: api/request/confirm/5
         [HttpPut("confirm/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
